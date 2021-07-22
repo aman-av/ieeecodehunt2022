@@ -13,8 +13,6 @@ mongoose.connect(keys.mongoURI,
         useNewUrlParser:true
     });
 
-
-const User = mongoose.model('details');
 const app = express();
 
 app.use(express.json({ limit:'1mb'}));
@@ -27,27 +25,14 @@ app.use(
         keys: [keys.cookieKey]
     })
 );
-
+//app.use('/api2');
+//app.use('/api1');
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes/authroutes')(app);
+require('./routes/apiroutes')(app);
 
-/*app.post('/insert',(req,res)=>{
-    const rr=req.json();
-    const newpoints=rr.body.points;
-    const newDate=rr.body.date;
 
-    const Score=new User({googleId:1212,name:'aman',time:newDate,points:newpoints});
-    try{
-        Score.save();
-        res.send("Insert data");
-    }
-    catch(err)
-    {
-        console.log(err);
-    }
-});
-*/
 if(process.env.NODE_ENV === 'production')
 {
     //express will serve up production assets
@@ -65,21 +50,4 @@ if(process.env.NODE_ENV === 'production')
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
-
-app.post('/api',async (req,res) =>{
-    console.log("my data")
-    console.log(req.body.points);
-    const newpoints=req.body.points;
-    const newDate=req.body.date;
-    const profile=req.user.googleId;
-    await User.findOneAndUpdate({googleId:profile},{time:newDate,points:newpoints});
-   User.find({},(err,users)=>{
-       if(err)
-       console.warn(err);
-       console.warn(users)
-   })
-      
-   // const Score=new User({time:newDate,points:newpoints});
-    //Score.save();
-});
 

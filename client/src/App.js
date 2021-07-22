@@ -5,7 +5,7 @@ import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
 import Final from './Final';
-
+import Quiz from './Quiz';
 class App extends Component {
  
 
@@ -16,6 +16,7 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
+            <Route exact path="/Quiz" component={Quiz} />
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/Final" component={Final} />
            

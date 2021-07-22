@@ -39,7 +39,7 @@ passport.use(new GoogleStrategy({
             .then(user => done(null,user));
         }
  
-   console.log(profile);
+   console.log("loggedin");
 
      }
     )

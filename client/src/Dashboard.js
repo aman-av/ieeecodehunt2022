@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState,useEffect } from 'react';
 import Crossword from '@jaredreisinger/react-crossword';
 import styled from 'styled-components';
 import { Button,Container,Row } from 'react-bootstrap';
@@ -31,13 +31,48 @@ const data = {
 
 
 
-
 // in order to make this a more-comprehensive example, and to vet Crossword's
 // features, we actually implement a fair amount...
 
-function App() {
-  const crossword = useRef();
+function Dashboard() {
+  const currentdate = new Date();
+  var date = 
+  [currentdate.getHours()  
+ , currentdate.getMinutes()
+ , currentdate.getSeconds()]
+ 
 
+   
+  const [intime,setintime]=useState([0,0,0]);
+   useEffect(() => {
+    fetch('/api/4')
+    .then(result => (result).json()).
+    then(rr=>{console.log(rr);
+    setintime(rr)});
+   }, [])
+  
+   const [seconds, setSeconds] = useState(1);
+    useEffect(()=>{
+    console.log("once")
+    setSeconds(1+Math.abs(date[0]-intime[0])*3600+Math.abs(date[1]-intime[1])*60+Math.abs(date[2]-intime[2]))}
+    ,intime);    
+
+   
+
+
+    
+   useEffect(() => {
+     const timer = setInterval(() => {
+       setSeconds(seconds + 1);
+     }, 1000);
+                // clearing interval
+     return () => clearInterval(timer);
+   });
+
+
+
+  const crossword = useRef();
+ 
   const reset = useCallback((event) => {
     crossword.current.reset();
   }, []);
@@ -55,7 +90,7 @@ function App() {
     height:"",
     width:"50vw"
   };
-
+  
   // onCrosswordCorrect is called with a truthy/falsy value.
   const onCrosswordCorrect = useCallback(
     (isCorrect) => {if(isCorrect==true)
@@ -69,9 +104,14 @@ function App() {
   return (
     <div style={mystyle}>
      <Container>
+
+     {(Math.floor(seconds/3600))%24}:{(Math.floor(seconds/60))%60}:{seconds%60}
+
      <Button variant="secondary" onClick={reset}>Reset</Button>
      
 
+    
+      
      
        <Crossword
        
@@ -90,12 +130,9 @@ function App() {
   else
     {
       const currentdate = new Date();
-      var date = "Last Sync: " + currentdate.getDate() + "/"
-                  + (currentdate.getMonth()+1)  + "/" 
-                  + currentdate.getFullYear() + " @ "  
-                  + currentdate.getHours() + ":"  
-                  + currentdate.getMinutes() + ":" 
-                  + currentdate.getSeconds();
+      var date = [currentdate.getHours(),  
+       currentdate.getMinutes(),
+       currentdate.getSeconds()]
       const points=100;
     const data={points , date};
     const options={
@@ -106,11 +143,12 @@ function App() {
           body: JSON.stringify(data)
         };
 
-         fetch('/api',options)
+         fetch('/api/2',options)
        
     
-        crossword.current.reset();return <Redirect to="/Final"/>;
+        crossword.current.reset();
+        return <Redirect to="/Final"/>;
     }
 }
 
-export default App;
+export default Dashboard;

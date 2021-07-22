@@ -4,8 +4,10 @@ const {Schema} =  mongoose;
 const userSchema = new Schema({
     googleId:String,
     name:String,
-    time:{type:String,default:null},
-    points:{type:Number,default:0}
+    order:{type:Number,default:10000000},
+    time:{type:Array,default:null},
+    points:{type:Number,default:0},
+    intime:{type:Array,default:null}
 });
 
 
