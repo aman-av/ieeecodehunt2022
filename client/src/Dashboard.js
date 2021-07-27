@@ -9,131 +9,29 @@ import { Button, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
+
+
+
 const data = {
+  
   across: {
     1: {
-      clue: "The method used to convert digital frequencies to analog frequencies",
-      answer: "PREWARPING",
-      row: 10,
-      col: 1,
-    },
-    2: {
-      clue: "The class of signals used to perform time domain analysis",
-      answer: "ELEMENTARY",
-      row: 9,
-      col: 1,
-    },
-    3: {
-      clue: "These plots are used to study the stability of the system",
-      answer: "NYQUIST",
-      row: 12,
-      col: 1,
-    },
-    4: {
-      clue: "The power series expansion of a function about 0",
-      answer: "MACLAURIN",
-      row: 13,
-      col: 7,
-    },
-    5: {
-      clue: "The window function which uses the zeroth Bessel function of first type",
-      answer: "KAISER",
-      row: 14,
-      col: 4,
-    },
-    6: {
-      clue: "___________ matching method greatly reduces the reflection coefficient of a transmission line",
-      answer: "IMPEDANCE",
-      row: 6,
-      col: 1,
-    },
-    7: {
-      clue: "This technique is used to obtain the DFT of a signal from its DTFT",
-      answer: "SAMPLING",
-      row: 3,
+      clue: 'one plus one',
+      answer: 'TWO',
+      row: 0,
       col: 0,
-    },
-    8: {
-      clue: "The class of signals highly sensitive to noise",
-      answer: "ANALOG",
-      row: 5,
-      col: 3,
-    },
-    9: {
-      clue: "Most of the second order systems fall under this class of systems",
-      answer: "OSCILLATORY",
-      row: 2,
-      col: 1,
-    },
-    10: {
-      clue: "Anticausal systems are also known by this name",
-      answer: "ANTICIPATORY",
-      row: 4,
-      col: 1,
     },
   },
   down: {
-    1: {
-      clue: "A distortion of this type is caused due to multiple frequencies",
-      answer: "HARMONIC",
-      row: 0,
-      col: 10,
-    },
     2: {
-      clue: "The transformation which is linear in two variables",
-      answer: "BILINEAR",
-      row: 1,
-      col: 4,
-    },
-    3: {
-      clue: "Consequence of choosing the sampling frequency lower than that predicted by Nyquist theorem.",
-      answer: "ALIASING",
-      row: 6,
-      col: 0,
-    },
-    4: {
-      clue: "The type of variables on which time scaling operation can be performed",
-      answer: "INDEPENDENT",
-      row: 6,
-      col: 1,
-    },
-    5: {
-      clue: "The diagrammatic method of finding the variable frequency wrt the fixed frequency",
-      answer: "LISSAJOUS",
-      row: 6,
-      col: 12,
-    },
-    6: {
-      clue: "A system can be classified as linear depending on the whether or not it satisfies this theorem",
-      answer: "SUPERPOSITION",
-      row: 3,
-      col: 14,
-    },
-    7: {
-      clue: "The ratio of output to the input of a system measured in the same domain , with all initial conditions considered as 0 is ________ function",
-      answer: "TRANSFER",
-      row: 6,
-      col: 13,
-    },
-    8: {
-      clue: "The process of increasing the number of samples of a signal , by inserting zeros  in between the existing samples",
-      answer: "UPSAMPLING",
-      row: 5,
-      col: 15,
-    },
-    9: {
-      clue: "This component is also known as the heart of the CRO",
-      answer: "CRT",
-      row: 13,
-      col: 9,
-    },
-    10: {
-      clue: "FIR filter can be classified as all --------- systems",
-      answer: "ZERO",
-      row: 5,
-      col: 9,
+      clue: 'three minus two',
+      answer: 'ONE',
+      row: 0,
+      col: 2,
     },
   },
+
+
 };
 const CrosswordWrapper = styled.div`
   margin-top: 2em;

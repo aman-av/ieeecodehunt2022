@@ -45,6 +45,10 @@ module.exports = (app) =>{
          const val= await User.findById(req.user);
          console.log(val);
          res.send(JSON.stringify(val.intime));
-     })
+     });
+
+     app.get('/api/auth',async(req,res)=>{
+        res.send(JSON.stringify(req.user.googleId));
+    });
 
 };

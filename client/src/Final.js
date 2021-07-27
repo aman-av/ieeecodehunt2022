@@ -4,13 +4,14 @@ import {Container,Button,Table} from 'react-bootstrap';
 import {Timer} from 'react-compound-timer';
 import { useState,useEffect } from 'react';
 import { useTimer } from 'use-timer';
+import { Redirect } from 'react-router-dom';
 
 
 
 //import Axios from 'axios';
 function Final() {
 
-   
+    const [end, setend] = useState(false);
     const [data,setdata]=useState([]);
     useEffect(() => {
         fetch('/api/1')
@@ -19,6 +20,10 @@ function Final() {
         setdata(rr)});
     }, [])
     
+    const handler = () =>{
+        setend(true);
+    }
+   
     //const { time, start, pause, reset, status } = useTimer( {initialTime: nv,autostart:true});
     
     return (
@@ -54,7 +59,10 @@ function Final() {
                 
                
 
-
+            <Button onClick={handler}>End</Button>             
+            {
+                end?<Redirect to="/api/logout"/>:console.log('loggedin')
+            }
             </Container>
            
             

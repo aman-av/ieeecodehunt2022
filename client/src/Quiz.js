@@ -57,9 +57,11 @@ function Quiz() {
     const nextQuetions = currentQuestion + 1;
     if (nextQuetions < questions.length) {
       setCurrentQuestion(nextQuetions);
+      
     } else {
       setShowScore(true);
     }
+    setCounter(20);
   };
 
   useEffect(() => {
@@ -68,11 +70,12 @@ function Quiz() {
 
   useEffect(() => {
     if (counter > 0) {
-      setTimeout(() => setCounter(counter - 1), 1000);
+      const timer = setTimeout(() => setCounter(counter - 1), 1000);
+      return () => clearTimeout(timer);
     } else {
       const nextQuetions = currentQuestion + 1;
       if (nextQuetions < questions.length) {
-        setCurrentQuestion(nextQuetions);
+        setCurrentQuestion(nextQuetions); 
       } else {
         setShowScore(true);
       }
@@ -80,29 +83,26 @@ function Quiz() {
     }
   }, [counter]); 
 
+
   const handler = () => {
     setistrue("true");
   };
 
   if (istrue === "false") {
-    // return (
-    //   <div>
-    //     <h1>Quiz</h1>
-    //     <Button onClick={handler}>Condition</Button>
-    //     <div>{counter}</div>
-    //   </div>
-    // );
+  
     return (
       <>
         <h1 className="header">Quiz</h1>
         <div>
-          <Button onClick={handler}>Condition</Button>
+         
           <div>{counter}</div>
         </div>
         <div className="app">
           {showScore ? (
             <div className="score-section">
-              You scored {score} out of {questions.length}
+              <p>You scored {score} out of {questions.length}<br/>
+               <Button onClick={handler}>Go to next round</Button></p>
+             
             </div>
           ) : (
             <>
