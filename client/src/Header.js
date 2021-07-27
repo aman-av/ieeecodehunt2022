@@ -11,8 +11,8 @@ export default function Header() {
                 <Container>
                 <Navbar.Brand href="#home">Navbar</Navbar.Brand>
                 <Nav className="me-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Features</Nav.Link>
+                <Nav.Link href="/Final">Home</Nav.Link>
+                <Nav.Link href="/Quiz">Quiz</Nav.Link>
                 <Nav.Link href="/auth/google" >Login</Nav.Link>
                 
                 </Nav>
