@@ -64,38 +64,59 @@ const CrosswordWrapper = styled.div`
 // features, we actually implement a fair amount...
 
 function Dashboard() {
+
+  useEffect(() => {
+    
+   
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', function (event){
+        window.history.pushState(null, document.title,  window.location.href);
+       
+    });
+  });
+
   const currentdate = new Date();
   var date = [
     currentdate.getHours(),
     currentdate.getMinutes(),
     currentdate.getSeconds(),
   ];
-
-  const [intime, setintime] = useState([0, 0, 0]);
-  const [isLoading, setIsLoading] = useState(false);
+  var diff=0;
+  const endvalue=currentdate.getHours()*3600+currentdate.getMinutes()*60+currentdate.getSeconds();
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      await fetch("/api/4")
-        .then((result) => result.json())
-        .then((rr) => {
-          setintime(rr);
-        });
-      setIsLoading(false);
-    };
-    fetchData();
-  },intime);
+    diff=localStorage.getItem('Quiztimeout');
+   // console.log()
+  //  console.log(data);
+    diff=endvalue-diff;
+   // console.log(ggg);
 
-  const [seconds, setSeconds] = useState(1);
-  useEffect(() => {
-    console.log("once");
-    setSeconds(
-      1 +
-        Math.abs(date[0] - intime[0]) * 3600 +
-        Math.abs(date[1] - intime[1]) * 60 +
-        Math.abs(date[2] - intime[2])
-    );
-  }, intime);
+  }, [])
+  
+  // const [intime, setintime] = useState([0, 0, 0]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true);
+  //     await fetch("/api/4")
+  //       .then((result) => result.json())
+  //       .then((rr) => {
+  //         setintime(rr);
+  //       });
+  //     setIsLoading(false);
+  //   };
+  //   fetchData();
+  // },intime);
+
+  const [seconds, setSeconds] = useState(diff);
+  // useEffect(() => {
+  //   console.log("once");
+  //   setSeconds(
+  //     1 +
+  //       Math.abs(date[0] - intime[0]) * 3600 +
+  //       Math.abs(date[1] - intime[1]) * 60 +
+  //       Math.abs(date[2] - intime[2])
+  //   );
+  // }, intime);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -138,14 +159,15 @@ function Dashboard() {
     return (
       <div style={mystyle}>
         <Container>
-          {isLoading ? (
+          {/* {isLoading ? (
             <p>Loading</p>
-          ) : (
+          ) : ( */}
             <p>
               {Math.floor(seconds / 3600) % 24}:{Math.floor(seconds / 60) % 60}:
               {seconds % 60}
             </p>
-          )}
+          {/* )
+          }  */}
 
           <Button variant="secondary" onClick={reset}>
             Reset

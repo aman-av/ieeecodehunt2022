@@ -11,6 +11,17 @@ import { Redirect } from 'react-router-dom';
 //import Axios from 'axios';
 function Final() {
 
+    
+    useEffect(() => {
+      
+     
+      window.history.pushState(null, document.title, window.location.href);
+      window.addEventListener('popstate', function (event){
+          window.history.pushState(null, document.title,  window.location.href);
+         
+      });
+    });
+
     const [end, setend] = useState(false);
     const [data,setdata]=useState([]);
     useEffect(() => {

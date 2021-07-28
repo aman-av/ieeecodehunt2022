@@ -49,6 +49,7 @@ function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
+
   const handleAnswerButtonClick = (isCorrect) => {
     if (isCorrect === true) {
       setScore(score + 1);
@@ -63,7 +64,16 @@ function Quiz() {
     }
     setCounter(20);
   };
+  useEffect(() => {
+    
+   
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', function (event){
+        window.history.pushState(null, document.title,  window.location.href);
+       
+    });
 
+  }, []);
   useEffect(() => {
     localStorage.setItem("counter", counter);
   }, [counter]);
@@ -150,8 +160,15 @@ function Quiz() {
       },
       body: JSON.stringify(data),
     };
-
+  
+    
+      const endvalue=currentdate.getHours()*3600+currentdate.getMinutes()*60+currentdate.getSeconds();
+      
+    
     fetch("/api/3", options);
+
+    localStorage.setItem('Quiztimeout',endvalue);
+
     return <Redirect to="/Dashboard" />;
   }
 }
