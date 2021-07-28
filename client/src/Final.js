@@ -32,6 +32,7 @@ function Final() {
     }, [])
     
     const handler = () =>{
+        window.localStorage.clear();
         setend(true);
     }
    
@@ -72,7 +73,7 @@ function Final() {
 
             <Button onClick={handler}>End</Button>             
             {
-                end?<Redirect to="/api/logout"/>:console.log('loggedin')
+                end?<Redirect to="/Login"/>:console.log('loggedin')
             }
             </Container>
            

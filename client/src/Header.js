@@ -4,15 +4,15 @@ import {Container,Navbar,NavbarBrand,Nav} from 'react-bootstrap';
 
 export default function Header() {
    
-    const [auth, setauth] = useState(null)
-    useEffect(() => {
-      fetch('/api/auth').
-      then(ree=>ree.json())
-      .then(re=>{console.log(re)
-        setauth(re)})
+    // const [auth, setauth] = useState(null)
+    // useEffect(() => {
+    //   fetch('/api/auth').
+    //   then(ree=>ree.json())
+    //   .then(re=>{console.log(re)
+    //     setauth(re)})
       
-    },[])
-    if(auth=='')
+    // },[])
+    // if(auth=='')
     return (
         <div>
              <Navbar bg="dark" variant="dark">
@@ -21,7 +21,7 @@ export default function Header() {
                 <Nav className="me-auto">
                 <Nav.Link href="/Final">Home</Nav.Link>
 
-                <Nav.Link href="/auth/google" >Login</Nav.Link>
+                <Nav.Link href="/Login" >Login</Nav.Link>
                 
                 </Nav>
                 </Container>
@@ -29,24 +29,24 @@ export default function Header() {
             
         </div>
     )
-    else
-    {
+//     else
+//     {
         
-        return (
-            <div>
-                 <Navbar bg="dark" variant="dark">
-                    <Container>
-                    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-                    <Nav className="me-auto">
-                    <Nav.Link href="/Final">Home</Nav.Link>
-                    <Nav.Link href="/Quiz">Quiz</Nav.Link>
-                    <Nav.Link href="/auth/google" >Login</Nav.Link>
+//         return (
+//             <div>
+//                  <Navbar bg="dark" variant="dark">
+//                     <Container>
+//                     <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+//                     <Nav className="me-auto">
+//                     <Nav.Link href="/Final">Home</Nav.Link>
+//                     <Nav.Link href="/Quiz">Quiz</Nav.Link>
+//                     <Nav.Link href="/Login" >Login</Nav.Link>
                     
-                    </Nav>
-                    </Container>
-                </Navbar>           
+//                     </Nav>
+//                     </Container>
+//                 </Navbar>           
                 
-            </div>
-        )
-    }
-}
+//             </div>
+//         )
+//     }
+ }

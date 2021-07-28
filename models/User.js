@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 const {Schema} =  mongoose;
 
 const userSchema = new Schema({
-    googleId:String,
+    usn:String,
     name:String,
-    order:{type:Number,default:10000000},
-    time:{type:Array,default:null},
+    intime:{type:Array,default:null},
+    quiztime:{type:Array,default:null},
+    endtime:{type:Array,default:null},
     points:{type:Number,default:0},
-    intime:{type:Array,default:null}
+    entrydone:{type:Boolean, default:false},
+    quizdone:{type:Boolean, default:false},
+    crossworddone:{type:Boolean, default:false}
 });
 
 

@@ -1,2 +1,4 @@
 node_modules
 dev.js
+passport.js
+authroutes.js

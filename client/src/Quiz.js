@@ -3,6 +3,18 @@ import { Redirect } from "react-router-dom";
 import { Button, Container, Row } from "react-bootstrap";
 
 function Quiz() {
+  useEffect(() => {
+    
+    
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', function (event){
+      
+        window.history.pushState(null, document.title,  this.window.location.href);
+       
+    });
+
+  }, []);
+  
   const questions = [
     {
       questionText: "Who is Prime Minister of India?",
@@ -64,16 +76,7 @@ function Quiz() {
     }
     setCounter(20);
   };
-  useEffect(() => {
-    
-   
-    window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener('popstate', function (event){
-        window.history.pushState(null, document.title,  window.location.href);
-       
-    });
-
-  }, []);
+ 
   useEffect(() => {
     localStorage.setItem("counter", counter);
   }, [counter]);
@@ -145,14 +148,16 @@ function Quiz() {
       </>
     );
   } else {
-    window.localStorage.clear();
+    //window.localStorage.clear();
     const currentdate = new Date();
     var date = [
       currentdate.getHours(),
       currentdate.getMinutes(),
       currentdate.getSeconds(),
     ];
-    const data = { date };
+    const usn=localStorage.getItem("usn");
+    const data = { date, usn };
+    
     const options = {
       method: "POST",
       headers: {
@@ -165,7 +170,7 @@ function Quiz() {
       const endvalue=currentdate.getHours()*3600+currentdate.getMinutes()*60+currentdate.getSeconds();
       
     
-    fetch("/api/3", options);
+    fetch("/api/2", options);
 
     localStorage.setItem('Quiztimeout',endvalue);
 

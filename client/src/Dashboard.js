@@ -71,6 +71,7 @@ function Dashboard() {
     window.history.pushState(null, document.title, window.location.href);
     window.addEventListener('popstate', function (event){
         window.history.pushState(null, document.title,  window.location.href);
+        //window.location.reload(false);
        
     });
   });
@@ -200,7 +201,8 @@ function Dashboard() {
       currentdate.getSeconds(),
     ];
     const points = 100;
-    const data = { points, date };
+    const usn=localStorage.getItem("usn");
+    const data = { points, date,usn };
     const options = {
       method: "POST",
       headers: {
@@ -209,7 +211,7 @@ function Dashboard() {
       body: JSON.stringify(data),
     };
 
-    fetch("/api/2", options);
+    fetch("/api/3", options);
 
     crossword.current.reset();
     return <Redirect to="/Final" />;

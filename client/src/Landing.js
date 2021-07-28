@@ -14,7 +14,7 @@ export default function Landing() {
         <div>
             <Container>
             <Row>
-               <Button onClick={handler()} variant="dark"><a href="/auth/google">Login With Google</a></Button>
+               <Button onClick={handler()} variant="dark"><a href="/Login">Login With Google</a></Button>
             </Row>
            
             </Container>

@@ -1,12 +1,12 @@
 const express= require('express');
 const mongoose = require('mongoose');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
+//const cookieSession = require('cookie-session');
+//const passport = require('passport');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 //const cors = require('cors');
-
+global.user_id=null;
 mongoose.connect(keys.mongoURI,
     {
         useUnifiedTopology:true,
@@ -19,17 +19,17 @@ app.use(express.json({ limit:'1mb'}));
 
 
 //app.use(cors);
-app.use(
-    cookieSession({
-        maxAge: 30*24*60*60*1000,
-        keys: [keys.cookieKey]
-    })
-);
+// app.use(
+//     cookieSession({
+//         maxAge: 30*24*60*60*1000,
+//         keys: [keys.cookieKey]
+//     })
+// );
 //app.use('/api2');
 //app.use('/api1');
-app.use(passport.initialize());
-app.use(passport.session());
-require('./routes/authroutes')(app);
+// app.use(passport.initialize());
+// app.use(passport.session());
+//require('./routes/authroutes')(app);
 require('./routes/apiroutes')(app);
 
 
