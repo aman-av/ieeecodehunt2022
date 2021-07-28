@@ -13,7 +13,7 @@ function Quiz() {
        
     });
 
-  }, []);
+  });
   
   const questions = [
     {
@@ -148,7 +148,7 @@ function Quiz() {
       </>
     );
   } else {
-    //window.localStorage.clear();
+    window.localStorage.removeItem("counter");
     const currentdate = new Date();
     var date = [
       currentdate.getHours(),
