@@ -179,24 +179,44 @@ function Dashboard() {
           {/* {isLoading ? (
             <p>Loading</p>
           ) : ( */}
-            <p>
-              {Math.floor(crosswordCounter / 3600) % 24}:{Math.floor(crosswordCounter / 60) % 60}:
-              {crosswordCounter % 60}
-            </p>
+          <p
+            style={{
+              position: "absolute",
+              marginTop: "250px",
+              border: "3px solid #7798AB",
+              color: "#7798AB",
+              padding: "10px",
+              fontSize: "30px",
+            }}
+          >
+            {Math.floor(crosswordCounter / 3600) % 24}:
+            {Math.floor(crosswordCounter / 60) % 60}:{crosswordCounter % 60}
+          </p>
           {/* )
           }  */}
 
-          <Button variant="secondary" onClick={reset}>
+          <Button
+            onClick={reset}
+            style={{
+              position: "absolute",
+              right: 8,
+              top: 10,
+              backgroundColor: "#011624",
+            }}
+          >
             Reset
           </Button>
-          <CrosswordWrapper>
+          <CrosswordWrapper
+            style={{ marginLeft: "180px", marginTop: "70px", color: "#7798AB" }}
+          >
             <Crossword
+              style={{ height: "250px" }}
               data={data}
               ref={crossword}
               theme={{
-                gridBackground: "#0d63a5",
-                cellBackground: "#ffffff",
-                numberColor: "rgba(0,0,0,0.75)",
+                gridBackground: "#7798AB",
+                cellBackground: "grey",
+                numberColor: "rgba(0,0,0,1)",
                 focusBackground: "#ffd717",
                 // highlightBackground : '#rgba(0,40,232,0.25)'
               }}

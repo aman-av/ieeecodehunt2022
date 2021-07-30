@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.12.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "concurrently": "^6.2.0",
