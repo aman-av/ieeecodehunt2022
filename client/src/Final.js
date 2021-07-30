@@ -5,6 +5,7 @@ import { Timer } from "react-compound-timer";
 import { useState, useEffect } from "react";
 import check from './images/check.svg'
 import cross from './images/cross.svg'
+import { Redirect } from "react-router";
 
 
 export default function Final(){
@@ -125,6 +126,7 @@ export default function Final(){
         <Button onClick={handler} style={{ backgroundColor: "#850505" }}>
           End
         </Button>
+        {end ? <Redirect to="/Login" /> : console.log("loggedin")}
       </div>
     );
 }
