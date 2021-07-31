@@ -21,21 +21,20 @@ function App() {
 
   return (
     <div>
-       <div className="container">
+      <Header />
+      <div className="container">
         <BrowserRouter>
           <div>
-            <Header />
-            <Route exact path="/Login" component={Login}/>
+            <Route exact path="/Login" component={Login} />
             <Route exact path="/" component={Landing} />
             <Route exact path="/Quiz" component={Quiz} />
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/Final" component={Final} />
-           
           </div>
         </BrowserRouter>
       </div>
     </div>
-  )
+  );
 }
 
 export default App

@@ -1,0 +1,131 @@
+.header{
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+
+  color:white;
+}
+
+.counter{
+   position: absolute;
+  right: 0;
+  top: 0;
+   margin-top: 75px;
+   margin-right: 40px;
+  border: 3px solid white;
+  border-radius:50%;
+  width: 80px;
+  height: 80px;
+  /* padding: 20px;
+  padding-top: 10px; */
+  font-size: 30px;
+  color: white;
+}
+.ques{
+border: 1px solid white;
+margin: 1rem;
+padding: 0.5rem;
+
+}
+
+.quiz {
+  background-color: #7798ab;
+  /* background-color: rgb(13, 99, 165); */
+  width: 450px;
+  min-height: 200px;
+  height: min-content;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 10px 10px 42px 0px rgba(119	,152,	171,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: black;
+  margin-top: 2rem;
+  margin-left: 33%;
+  padding: 1rem;
+ 
+}
+
+.score-section {
+  font-size: 30px;
+text-align: center;
+  color: #041E42;
+}
+
+
+/* QUESTION/TIMER/LEFT SECTION */
+.question-section {
+  width: 100%;
+  position: relative;
+}
+
+.question-count {
+  margin-bottom: 20px;
+}
+
+.question-count span {
+  font-size: 28px;
+}
+
+.question-text {
+  margin-bottom: 12px;
+}
+
+.timer-text {
+  background: rgb(230, 153, 12);
+  padding: 15px;
+  margin-top: 20px;
+  margin-right: 20px;
+  border: 5px solid rgb(255, 189, 67);
+  border-radius: 15px;
+  text-align: center;
+}
+
+/* ANSWERS/RIGHT SECTION */
+.answer-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.quiz-btn {
+  width: 100%;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #011624;
+  border-radius: 15px;
+  display: flex;
+  padding: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 5px solid #234668;
+  cursor: pointer;
+  margin: 0.25rem;
+}
+
+.correct {
+  background-color: #2f922f;
+}
+
+.incorrect {
+  background-color: #ff3333;
+}
+
+button:hover {
+  background-color: #041E42;
+}
+
+button:focus {
+  outline: none;
+}
+
+button svg {
+  margin-right: 5px;
+}
+
+.count{
+  padding-left: 22px;
+  padding-top: 12px;
+}

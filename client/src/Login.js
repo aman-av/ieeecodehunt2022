@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import './css/login.css';
 
 function Login() {
   const [usn, setusn] = useState(null);
@@ -34,24 +35,35 @@ function Login() {
 
   if ( istrue === "false"){
     return (
-      <div>
-        <form>
-          <label>
-            USN:
+      <div className="back">
+        <div className="login-card">
+          <h4>Login</h4>
+
+          <form className="quiz-form">
+            <label style={{ margin: "0.25rem" }}>
+              <h6>USN:</h6>
+            </label>
             <input
               type="text"
               name="usn"
               value={usn}
               onChange={(e) => setusn(e.target.value)}
+              style={{ margin: "0.75rem", justifyContent: "center" }}
             />
-          </label>
-        </form>
-  
-        {/* <Button variant="dark" href="/Quiz" onClick={handler}>
-          Submit
-        </Button> */}
-        <Button variant = "dark" onClick= {handler}>Submit</Button>
-  
+          </form>
+
+          <Button
+            className="login-btn"
+            variant="dark"
+            backgroundColor="#011624"
+            href="/Quiz"
+            onClick={handler}
+          >
+            Start Quiz
+          </Button>
+
+          
+        </div>
       </div>
     );
   }
