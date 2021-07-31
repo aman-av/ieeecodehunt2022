@@ -24,12 +24,12 @@ function Final() {
 
     const [end, setend] = useState(false);
     const [data,setdata]=useState([]);
-    useEffect(() => {
-        fetch('/api/1')
-        .then(result => (result).json()).
-        then(rr=>{console.log(rr);
-        setdata(rr)});
-    }, [])
+    // useEffect(() => {
+    //     fetch('/api/1')
+    //     .then(result => (result).json()).
+    //     then(rr=>{console.log(rr);
+    //     setdata(rr)});
+    // }, [])
     
     const handler = () =>{
         window.localStorage.clear();

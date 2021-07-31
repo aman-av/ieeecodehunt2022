@@ -38,6 +38,27 @@ module.exports = (app) =>{
     
     });
 
+    app.get('/api/4/:usnId',async (req,res) => {
+        await User.find({usn : req.params.usnId}).then(function (participant){
+            res.json ({ participant})
+            // console.log(participant)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    })
+    app.get('/api/5',async (req,res) => {
+        console.log('API5');
+        await User.find().populate(
+            "name","usn","quiztime"
+            ).then(participant => {
+            res.json ({participant})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    })
+
     
 
     
