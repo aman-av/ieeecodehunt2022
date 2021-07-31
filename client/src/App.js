@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div>
-       <div className="container" >
+       {/* <div className="container" > */}
         <BrowserRouter>
           <div>
             <Header />
@@ -35,7 +35,7 @@ function App() {
            
           </div>
         </BrowserRouter>
-      </div>
+      {/* </div> */}
     </div>
   )
 }
