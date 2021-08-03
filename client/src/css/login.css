@@ -1,0 +1,27 @@
+.back{
+  /* background-image: url('../images/polygon.svg'); */
+  overflow: hidden;
+  left: 0;
+  height: 100vh;
+}
+
+.login-card{
+  border: 2px solid #011624;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top:15%;
+  margin-left: 35%;
+  width: 350px; 
+  background-color:#7798ab;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ align-items: center;
+ 
+}
+
+
+.login-btn{
+ margin: 0.75rem;
+ background-color: #011624;
+}

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import ReactLoading from "react-loading";
-import './login_page_style.css';
+import "./login_page_style.css";
+import "./css/login.css";
 
 function Login() {
   const [usn, setusn] = useState(null);
   const [page, setPage] = useState("login");
-  const [isLoading, setIsLoading] = useState("false");
-  const eventStartDate = new Date(2021, 7, 30, 20, 0, 0, 0);
+  // const [isLoading, setIsLoading] = useState("false");
+  const eventEndDate =  new Date( 2021,8,10,20,0,0,0);
+  const eventStartDate = new Date(2021, 8, 1, 20, 0, 0, 0);
   const currentdate = new Date();
   const timeBetweenDates = (toDate) => {
     var dateEntered = toDate;
@@ -51,20 +52,23 @@ function Login() {
       },
       body: JSON.stringify(data),
     };
-
-    // setIsLoading("true");
     fetch(`api/4/${usn}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.participant[0] === undefined) {
-
           console.log("user doesnt exits");
         } else {
           console.log(result);
           console.log(result.participant[0].intime);
           var participant = result.participant[0];
           if (timeBetweenDates(eventStartDate) >= 0) {
-            setPage("wait");
+            if(timeBetweenDates(eventEndDate) < 0){
+              setPage("final")
+            }
+            else{
+              setPage("wait");
+            }
+            
           } else {
             if (participant.entrydone == true) {
               if (
@@ -86,93 +90,43 @@ function Login() {
             }
           }
         }
-        // console.log(result.participant[0].intime);
-        // var participant = result.participant[0];
-        // if (timeBetweenDates(eventStartDate) >= 0) {
-        //   setPage("wait");
-        // } else {
-        //   if (participant.entrydone == true) {
-        //     if (
-        //       participant.quizdone == false &&
-        //       participant.crossworddone == false
-        //     ) {
-        //       setPage("quiz");
-        //     } else if (
-        //       participant.quizdone == true &&
-        //       participant.crossworddone == false
-        //     ) {
-        //       setPage("crossword");
-        //     } else {
-        //       setPage("final");
-        //     }
-        //   } else {
-        //     fetch("/api/1", options);
-        //     setPage("quiz");
-        //   }
-        // }
       });
-    // fetch('/api/5/')
-    // .then(res => res.json())
-    // .then(
-    //   result =>{
-    //     console.log(JSON.stringify(result));
-    //   }
-    // )
   };
   useEffect(() => {
     console.log(usn);
   }, [usn]);
 
   if (page === "login") {
-    return !isLoading ? (
-      <ReactLoading type={"bars"} color={"#03fc4e"} height={100} width={100} />
-    ) : (
-      <section className = "loginpage" id= "loginpage" >
+    return (
+      <div className="back">
         <div id="stars"></div>
         <div id="stars2"></div>
-        <div id="stars3"></div>
-        <div style = {{backgroundColor : "transparent"}}>
-        <form style = {{backgroundColor : "transparent"}}>
-          <label>
-            USN:
+        <div className="login-card">
+          <h4>Login</h4>
+
+          <form className="quiz-form">
+            <label style={{ margin: "0.25rem" }}>
+              <h6>USN:</h6>
+            </label>
             <input
               type="text"
               name="usn"
               value={usn}
               onChange={(e) => setusn(e.target.value)}
+              style={{ margin: "0.75rem", justifyContent: "center" }}
             />
-          </label>
-        </form>
+          </form>
 
-        {/* <Button variant="dark" href="/Quiz" onClick={handler}>
-          Submit
-        </Button> */}
-        <Button variant="dark" onClick={handler}>
-          Submit
-        </Button>
+          <Button
+            className="login-btn"
+            variant="dark"
+            backgroundColor="#011624"
+            onClick={handler}
+          >
+            Start Quiz
+          </Button>
+        </div>
       </div>
-      </section>
-    //   <div style = {{backgroundColor : "transparent"}}>
-    //   <form style = {{backgroundColor : "transparent"}}>
-    //     <label>
-    //       USN:
-    //       <input
-    //         type="text"
-    //         name="usn"
-    //         value={usn}
-    //         onChange={(e) => setusn(e.target.value)}
-    //       />
-    //     </label>
-    //   </form>
-
-    //   {/* <Button variant="dark" href="/Quiz" onClick={handler}>
-    //     Submit
-    //   </Button> */}
-    //   <Button variant="dark" onClick={handler}>
-    //     Submit
-    //   </Button>
-    // </div>
-      
     );
   } else if (page === "quiz") {
     return <Redirect to="/Quiz" />;
