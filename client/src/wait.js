@@ -12,7 +12,7 @@ export default function WaitPage() {
   const [page,setPage] = useState(true);
 
   var timer;
-  var eventStartDate = new Date(2021, 8, 3, 13, 18, 0, 0); 
+  var eventStartDate = new Date(2021, 8, 13, 13, 18, 0, 0); 
 
   timer = setInterval(function () {
     timeBetweenDates(eventStartDate);

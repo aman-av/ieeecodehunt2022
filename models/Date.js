@@ -6,4 +6,4 @@ const dateSchema = new Schema({
 });
 
 
-mongoose.model('Event-Dates',dateSchema);
+mongoose.model('eventdates',dateSchema);

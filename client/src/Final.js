@@ -21,13 +21,15 @@ export default function Final() {
     setend(true);
   };
   const getDate = () => {
-    fetch('/api/6').then((res) =>{
-      res.json()
-    }).then(
+    fetch('/api/6')
+    .then((res) => res.json()
+    ).then(
       result => {
-        console.log(result);
+        console.log(result.dates[0]);
       }
-    )
+    ).catch((e) =>{
+      console.log(e);
+    })
   }
   return (
     <div>
