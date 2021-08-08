@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect, useImperativeHandle } from "react";
 import Crossword from "@jaredreisinger/react-crossword";
 import styled from "styled-components";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container,Row,Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { set } from "mongoose";
 const answerKey = {
@@ -339,6 +339,32 @@ const CrosswordWrapper = styled.div`
 `;
 
 function Dashboard() {
+
+  const [usn, setusn] = useState(localStorage.getItem('usn'));
+  const [page, setPage] = useState("");
+  useEffect(() => {
+    fetch(`api/4/${usn}`)
+    .then((res) => res.json())
+    .then((result) => {
+      if (result.participant[0] === undefined) {
+        console.log("user doesnt exits");
+      } else {
+        console.log(result);
+        console.log(result.participant[0].intime);
+        var participant = result.participant[0];
+        console.log(participant.crossworddone);
+        if(participant.crossworddone===true)
+        {console.log("final");setPage("final");}
+        else if(participant.quizdone===true)
+       {console.log("cw"); setPage("crossword")}
+        else if(participant.entrydone===true)
+        {console.log("quiz");setPage("quiz");}
+        else
+        {console.log("login");setPage("login");}
+      }
+    })
+  }, [])
+
   const intiCrosswordCounter = () =>
     Number(window.localStorage.getItem("crosswordCounter")) || 0;
 
@@ -416,7 +442,7 @@ function Dashboard() {
 
   const mystyle = {
     height: "100vh",
-    width: "85vw",
+    width: "100vw",
   };
   const onCrosswordCorrect = useCallback(
     (isCorrect) => {
@@ -476,23 +502,38 @@ function Dashboard() {
   };
   if (messages == false) {
     return (
-      <div style={mystyle}>
-        <Container>
+      <div style={mystyle} >
+      <Container>
+        <Row>
+          <Col></Col>
+          <Col></Col>
+          <Col>
           <p
             style={{
-              position: "absolute",
-              marginTop: "250px",
+               position:"absolute",
+              alignContent:"center",
+              textAlign:"center",
+              alignItems:"center",
+                marginTop: "5px",
+              //  marginBottom:"10px",
+              //  marginLeft:"35%",
+              //  marginRight:"35%",
               border: "3px solid #7798AB",
               color: "#7798AB",
               padding: "10px",
               fontSize: "30px",
+              
             }}
           >
             {Math.floor(crosswordCounter / 3600) % 24}:
             {Math.floor(crosswordCounter / 60) % 60}:{crosswordCounter % 60}
-          </p>
+          </p>                
+          </Col>
+          <Col></Col>
+          <Col></Col>
 
-          <Button
+        </Row>
+        <Button
             onClick={reset}
             style={{
               position: "absolute",
@@ -503,10 +544,14 @@ function Dashboard() {
           >
             Reset
           </Button>
-          <Button onClick={() => getPoints()}>GetScore</Button>
-          <Button onClick={()=> handleDone()}>Done</Button>
-          <CrosswordWrapper
-            style={{ marginLeft: "180px", marginTop: "70px", color: "#7798AB" }}
+          {/* <Button onClick={() => getPoints()}>GetScore</Button>
+          <Button onClick={()=> handleDone()}>Done</Button> */}
+         
+          <h4>{messages}</h4>
+         
+        <Row>
+        <CrosswordWrapper
+            style={{ marginTop: "70px", color: "#7798AB" }}
           >
             <Crossword
               style={{ height: "250px" }}
@@ -521,8 +566,10 @@ function Dashboard() {
               onCrosswordCorrect={onCrosswordCorrect}
             />
           </CrosswordWrapper>
-          <h4>{messages}</h4>
-        </Container>
+           
+        </Row>
+      </Container>
+           
       </div>
     );
   } else {
@@ -548,7 +595,19 @@ function Dashboard() {
     fetch("/api/3", options);
 
     crossword.current.reset();
-    return <Redirect to="/Final" />;
+    if(page ==="crossword")
+    {
+      return <Redirect to="/Dashboard" />;
+    }
+    else if(page ==="final"){
+      return <Redirect to="/Final" />;
+    }
+    else if(page ==="quiz"){
+      return <Redirect to="/Quiz" />;
+    }
+    else if(page ==="login"){
+      return <Redirect to="/Login" />;
+    }
   }
 }
 

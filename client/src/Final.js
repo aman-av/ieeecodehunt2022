@@ -30,6 +30,8 @@ export default function Final() {
     ).catch((e) =>{
       console.log(e);
     })
+
+
   }
   return (
     <div>

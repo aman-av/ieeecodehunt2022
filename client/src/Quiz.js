@@ -7,6 +7,32 @@ import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
 
 export default function Quiz() {
+
+  const [usn, setusn] = useState(localStorage.getItem('usn'));
+  const [page, setPage] = useState("quiz");
+  useEffect(() => {
+    fetch(`api/4/${usn}`)
+    .then((res) => res.json())
+    .then((result) => {
+      if (result.participant[0] === undefined) {
+        console.log("user doesnt exits");
+      } else {
+        console.log(result);
+        console.log(result.participant[0].intime);
+        var participant = result.participant[0];
+        console.log(participant.crossworddone);
+        if(participant.crossworddone===true)
+        {console.log("final");setPage("final");}
+        else if(participant.quizdone===true)
+       {console.log("cw"); setPage("crossword")}
+        else if(participant.entrydone===true)
+        {console.log("quiz");setPage("quiz");}
+        else
+        {console.log("login");setPage("login");}
+      }
+    })
+  }, [])
+
   useEffect(() => {
     window.history.pushState(null, document.title, window.location.href);
     window.addEventListener("popstate", function (event) {
@@ -281,7 +307,7 @@ export default function Quiz() {
     Number(window.localStorage.getItem("currentQuestionPointer")) || 0;
   const quizPoints = () =>
     Number(window.localStorage.getItem("quizPoints")) || 0;
-  const [page, setPage] = useState("quiz");
+ 
   const [counter, setCounter] = useState(initialCounter);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(quizPoints);
@@ -443,7 +469,7 @@ export default function Quiz() {
         )}
       </>
     );
-  } else {
+  } else{
     window.localStorage.removeItem("counter");
     window.localStorage.removeItem("currentQuestionPointer");
     window.localStorage.removeItem("quizPoints");
@@ -453,7 +479,7 @@ export default function Quiz() {
       currentdate.getMinutes(),
       currentdate.getSeconds(),
     ];
-    const usn = localStorage.getItem("usn");
+
     const quizpoints = score*10
     const data = { date, usn ,quizpoints};
 
@@ -473,12 +499,17 @@ export default function Quiz() {
     fetch("/api/2", options);
 
     // localStorage.setItem("Quiztimeout", endvalue);
-    if(page ==="final"){
+    if(page ==="crossword")
+    {
+      return <Redirect to="/Dashboard" />;
+    }
+    else if(page ==="final"){
       return <Redirect to="/Final" />;
     }
-    else{
-      return <Redirect to="/Dashboard" />;
+    else if(page ==="login"){
+      return <Redirect to="/Login" />;
     }
     
   }
 }
+
