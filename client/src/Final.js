@@ -24,9 +24,9 @@ export default function Final() {
     fetch('/api/6').then((res) =>{
       res.json()
     }).then(
-      result => {
-        console.log(result);
-      }
+      result => 
+        console.log(result)
+      
     )
   }
   return (

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('../models/User');
 require('../models/Date');
 const User = mongoose.model('details');
-const Dates = mongoose.model('Event-Dates');
+const Dates = mongoose.model('eventdates');
 module.exports = (app) =>{
 
    
