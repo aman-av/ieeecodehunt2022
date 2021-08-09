@@ -1,7 +1,13 @@
-import React, { useCallback, useRef, useState, useEffect, useImperativeHandle } from "react";
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  useEffect,
+  useImperativeHandle,
+} from "react";
 import Crossword from "@jaredreisinger/react-crossword";
 import styled from "styled-components";
-import { Button, Container,Row,Col } from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { set } from "mongoose";
 const answerKey = {
@@ -338,33 +344,7 @@ const CrosswordWrapper = styled.div`
   }
 `;
 
-function Dashboard() {
-
-  const [usn, setusn] = useState(localStorage.getItem('usn'));
-  const [page, setPage] = useState("");
-  useEffect(() => {
-    fetch(`api/4/${usn}`)
-    .then((res) => res.json())
-    .then((result) => {
-      if (result.participant[0] === undefined) {
-        console.log("user doesnt exits");
-      } else {
-        console.log(result);
-        console.log(result.participant[0].intime);
-        var participant = result.participant[0];
-        console.log(participant.crossworddone);
-        if(participant.crossworddone===true)
-        {console.log("final");setPage("final");}
-        else if(participant.quizdone===true)
-       {console.log("cw"); setPage("crossword")}
-        else if(participant.entrydone===true)
-        {console.log("quiz");setPage("quiz");}
-        else
-        {console.log("login");setPage("login");}
-      }
-    })
-  }, [])
-
+function Dashboard(props) {
   const intiCrosswordCounter = () =>
     Number(window.localStorage.getItem("crosswordCounter")) || 0;
 
@@ -375,18 +355,49 @@ function Dashboard() {
     currentdate.getMinutes(),
     currentdate.getSeconds(),
   ];
+  var timer;
 
+  const [usn, setusn] = useState(localStorage.getItem("usn"));
+  const [page, setPage] = useState("crossword");
+  const [isLoading, setLoading] = useState(true);
   const [crosswordCounter, setCrosswordCounter] =
     useState(intiCrosswordCounter);
 
   const [messages, setMessages] = useState([]);
   const [score, setScore] = useState(0);
   const [day, setDay] = useState();
-  var timer;
-  var eventEndDate = new Date(2021, 8, 10, 13, 49, 0, 0); //just for this demo today + 7 days
+  useEffect(() => {
+    
+    fetch(`api/4/${usn}`)
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.participant[0] === undefined) {
+          window.alert("Only Registered Users can participate");
+        } else {
+          console.log(result);
+          console.log(result.participant[0].intime);
+          var participant = result.participant[0];
+          console.log(participant.crossworddone);
+          if (participant.crossworddone === true) {
+            console.log("final");
+            setPage("final");
+          } else if (participant.quizdone === true) {
+            console.log("cw");
+            setPage("crossword");
+          } else if (participant.entrydone === true) {
+            console.log("quiz");
+            setPage("quiz");
+          } else {
+            console.log("login");
+            setPage("login");
+          }
+          setLoading(false);
+        }
+      });
+  }, []);
 
   timer = setInterval(function () {
-    timeBetweenDates(eventEndDate);
+    timeBetweenDates(props.eventEndDate);
   }, 1000);
 
   const timeBetweenDates = (toDate) => {
@@ -424,11 +435,11 @@ function Dashboard() {
     }, 1000);
     return () => clearTimeout(timer);
   });
-  useEffect(()=>{
-    if(day<0){
-      setMessages("final")
+  useEffect(() => {
+    if (day < 0) {
+      setMessages("final");
     }
-  },[day])
+  }, [day]);
 
   const crossword = useRef();
 
@@ -452,11 +463,11 @@ function Dashboard() {
     },
     [addMessage]
   );
-  const handleDone = ()=>{
-    const points = getPoints()
+  const handleDone = () => {
+    const points = getPoints();
     setScore(points);
     setMessages("true");
-  }
+  };
 
   const getPoints = () => {
     var points = 0;
@@ -497,116 +508,111 @@ function Dashboard() {
       }
     });
     console.log(points * 10);
-    return points*10;
-    
+    return points * 10;
   };
-  if (messages == false) {
-    return (
-      <div style={mystyle} >
-      <Container>
-        <Row>
-          <Col></Col>
-          <Col></Col>
-          <Col>
-          <p
-            style={{
-               position:"absolute",
-              alignContent:"center",
-              textAlign:"center",
-              alignItems:"center",
-                marginTop: "5px",
-              //  marginBottom:"10px",
-              //  marginLeft:"35%",
-              //  marginRight:"35%",
-              border: "3px solid #7798AB",
-              color: "#7798AB",
-              padding: "10px",
-              fontSize: "30px",
-              
-            }}
-          >
-            {Math.floor(crosswordCounter / 3600) % 24}:
-            {Math.floor(crosswordCounter / 60) % 60}:{crosswordCounter % 60}
-          </p>                
-          </Col>
-          <Col></Col>
-          <Col></Col>
-
-        </Row>
-        <Button
-            onClick={reset}
-            style={{
-              position: "absolute",
-              right: 8,
-              top: 10,
-              backgroundColor: "#011624",
-            }}
-          >
-            Reset
-          </Button>
-          {/* <Button onClick={() => getPoints()}>GetScore</Button>
-          <Button onClick={()=> handleDone()}>Done</Button> */}
-         
-          <h4>{messages}</h4>
-         
-        <Row>
-        <CrosswordWrapper
-            style={{ marginTop: "70px", color: "#7798AB" }}
-          >
-            <Crossword
-              style={{ height: "250px" }}
-              data={data}
-              ref={crossword}
-              theme={{
-                gridBackground: "#7798AB",
-                cellBackground: "grey",
-                numberColor: "rgba(0,0,0,1)",
-                focusBackground: "#ffd717",
-              }}
-              onCrosswordCorrect={onCrosswordCorrect}
-            />
-          </CrosswordWrapper>
-           
-        </Row>
-      </Container>
-           
-      </div>
-    );
+  if (isLoading) {
+    return <Container></Container>;
   } else {
-    window.localStorage.removeItem("crosswordCounter");
-    const currentdate = new Date();
-    var date = [
-      currentdate.getHours(),
-      currentdate.getMinutes(),
-      currentdate.getSeconds(),
-    ];
-    console.log(getPoints);
-    const crosswordpoints = score;
-    const usn = localStorage.getItem("usn");
-    const data = { crosswordpoints, date, usn };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
+    if (page === "crossword") {
+      if (messages == false) {
+        return (
+          <div style={mystyle}>
+            <Container>
+              <Row>
+                <Col></Col>
+                <Col></Col>
+                <Col>
+                  <p
+                    style={{
+                      position: "absolute",
+                      alignContent: "center",
+                      textAlign: "center",
+                      alignItems: "center",
+                      marginTop: "5px",
+                      //  marginBottom:"10px",
+                      //  marginLeft:"35%",
+                      //  marginRight:"35%",
+                      border: "3px solid #7798AB",
+                      color: "#7798AB",
+                      padding: "10px",
+                      fontSize: "30px",
+                    }}
+                  >
+                    {Math.floor(crosswordCounter / 3600) % 24}:
+                    {Math.floor(crosswordCounter / 60) % 60}:
+                    {crosswordCounter % 60}
+                  </p>
+                </Col>
+                <Col></Col>
+                <Col></Col>
+              </Row>
+              <Button
+                onClick={reset}
+                style={{
+                  position: "absolute",
+                  right: 8,
+                  top: 10,
+                  backgroundColor: "#011624",
+                }}
+              >
+                Reset
+              </Button>
+              <Button onClick={() => getPoints()}>GetScore</Button>
+              <Button onClick={() => handleDone()}>Done</Button>
 
-    fetch("/api/3", options);
+              <h4>{messages}</h4>
 
-    crossword.current.reset();
-    if(page ==="crossword")
-    {
-      return <Redirect to="/Dashboard" />;
-    }
-    else if(page ==="final"){
+              <Row>
+                <CrosswordWrapper
+                  style={{ marginTop: "70px", color: "#7798AB" }}
+                >
+                  <Crossword
+                    style={{ height: "250px" }}
+                    data={data}
+                    ref={crossword}
+                    theme={{
+                      gridBackground: "#7798AB",
+                      cellBackground: "grey",
+                      numberColor: "rgba(0,0,0,1)",
+                      focusBackground: "#ffd717",
+                    }}
+                    onCrosswordCorrect={onCrosswordCorrect}
+                  />
+                </CrosswordWrapper>
+              </Row>
+            </Container>
+          </div>
+        );
+      } else {
+        window.localStorage.removeItem("crosswordCounter");
+        const currentdate = new Date();
+        var date = [
+          currentdate.getHours(),
+          currentdate.getMinutes(),
+          currentdate.getSeconds(),
+        ];
+        console.log(getPoints);
+        const crosswordpoints = score;
+        const usn = localStorage.getItem("usn");
+        const data = { crosswordpoints, date, usn };
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        fetch("/api/3", options);
+        return <Redirect to="/Final" />;
+      }
+    } else if (page === "final") {
       return <Redirect to="/Final" />;
-    }
-    else if(page ==="quiz"){
+    } else if (page === "quiz") {
       return <Redirect to="/Quiz" />;
-    }
-    else if(page ==="login"){
+    } else if (page === "login") {
       return <Redirect to="/Login" />;
+    } else {
+      return <Redirect to="/Test" />;
     }
   }
 }

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import "katex/dist/katex.min.css";
 import { BlockMath } from "react-katex";
 import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
 
-export default function Quiz() {
+export default function Quiz(props) {
 
   const [usn, setusn] = useState(localStorage.getItem('usn'));
   const [page, setPage] = useState("quiz");
+  const [isLoading,setIsLoading] = useState(true);
   useEffect(() => {
     fetch(`api/4/${usn}`)
     .then((res) => res.json())
@@ -29,6 +30,7 @@ export default function Quiz() {
         {console.log("quiz");setPage("quiz");}
         else
         {console.log("login");setPage("login");}
+        setIsLoading(false);
       }
     })
   }, [])
@@ -316,11 +318,10 @@ export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(
     currentQuestionPointer
   );
-  var timer;
-  var eventEndDate = new Date(2021, 8, 10, 13, 49, 0, 0); //just for this demo today + 7 days
+  var timer; //just for this demo today + 7 days
 
   timer = setInterval(function () {
-    timeBetweenDates(eventEndDate);
+    timeBetweenDates(props.eventEndDate);
   }, 1000);
 
   const timeBetweenDates = (toDate) => {
@@ -378,6 +379,23 @@ export default function Quiz() {
   }, [counter]);
   useEffect(()=>{
     if(day<0){
+        const currentdate = new Date();
+        var date = [
+          currentdate.getHours(),
+          currentdate.getMinutes(),
+          currentdate.getSeconds(),
+        ];
+        const crosswordpoints = 0;
+        const usn = localStorage.getItem("usn");
+        const data = { crosswordpoints, date, usn };
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        fetch("/api/3", options);
       setPage("final")
     }
   },[day])
@@ -385,131 +403,139 @@ export default function Quiz() {
   const handler = () => {
     setPage("crossword");
   };
+  if(isLoading){
+   return (
+    <Container>
 
-  if (page === "quiz") {
-    return (
-      <>
-        {showScore ? (
-          <div className="quiz" style={{ marginTop: "140px" }}>
-            <div className="score-section">
-              <p>
-                You scored {score} out of {questions.length}
-                <br />
-                <Button
-                  onClick={handler}
-                  className="login-btn"
-                  style={{ backgroundColor: "#041E42" }}
-                >
-                  Go to next round
-                </Button>
-              </p>
-            </div>
-          </div>
-        ) : (
-          <>
-            <h1 className="header">Quiz</h1>
-            <ProgressBar
-              progress={counter}
-              size={80}
-              strokeWidth={3}
-              circleOneStroke="#000000"
-              circleTwoStroke="#7ea9e1"
-            />
-            <div className="quiz">
-              <div className="question-section">
-                <div className="question-count">
-                  <span>Question {currentQuestion + 1}</span>/{questions.length}
-                </div>
-                {questions[currentQuestion].questionType === "text" ? (
-                  <div className="question-text">
-                    {questions[currentQuestion].questionText}
-                  </div>
-                ) : (
-                  <div className="question-text">
-                    {questions[currentQuestion].questionText}
-                    <br />
-                    <div>
-                      <BlockMath
-                        math={questions[currentQuestion].questionEquation}
-                      />
-                    </div>
-                  </div>
-                )}
-
-                <div className="answer-section">
-                  {questions[currentQuestion].questionType === "text"
-                    ? questions[currentQuestion].answerOptions.map(
-                        (answerOption) => (
-                          <button
-                            className="quiz-btn"
-                            onClick={() =>
-                              handleAnswerOptionClick(answerOption.isCorrect)
-                            }
-                          >
-                            {answerOption.answerText}
-                          </button>
-                        )
-                      )
-                    : questions[currentQuestion].answerOptions.map(
-                        (answerOption) => (
-                          <button
-                            className="quiz-btn"
-                            onClick={() =>
-                              handleAnswerOptionClick(answerOption.isCorrect)
-                            }
-                          >
-                            <BlockMath math={answerOption.answerText} />
-                          </button>
-                        )
-                      )}
-                </div>
+    </Container>
+   ); 
+  }else{
+    if (page === "quiz") {
+      return (
+        <>
+          {showScore ? (
+            <div className="quiz" style={{ marginTop: "140px" }}>
+              <div className="score-section">
+                <p>
+                  You scored {score} out of {questions.length}
+                  <br />
+                  <Button
+                    onClick={handler}
+                    className="login-btn"
+                    style={{ backgroundColor: "#041E42" }}
+                  >
+                    Go to next round
+                  </Button>
+                </p>
               </div>
             </div>
-          </>
-        )}
-      </>
-    );
-  } else{
-    window.localStorage.removeItem("counter");
-    window.localStorage.removeItem("currentQuestionPointer");
-    window.localStorage.removeItem("quizPoints");
-    const currentdate = new Date();
-    var date = [
-      currentdate.getHours(),
-      currentdate.getMinutes(),
-      currentdate.getSeconds(),
-    ];
-
-    const quizpoints = score*10
-    const data = { date, usn ,quizpoints};
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-
-    const endvalue =
-      currentdate.getHours() * 3600 +
-      currentdate.getMinutes() * 60 +
-      currentdate.getSeconds();
-
-    fetch("/api/2", options);
-
-    // localStorage.setItem("Quiztimeout", endvalue);
-    if(page ==="crossword")
-    {
-      return <Redirect to="/Dashboard" />;
+          ) : (
+            <>
+              <h1 className="header">Quiz</h1>
+              <ProgressBar
+                progress={counter}
+                size={80}
+                strokeWidth={3}
+                circleOneStroke="#000000"
+                circleTwoStroke="#7ea9e1"
+              />
+              <div className="quiz">
+                <div className="question-section">
+                  <div className="question-count">
+                    <span>Question {currentQuestion + 1}</span>/{questions.length}
+                  </div>
+                  {questions[currentQuestion].questionType === "text" ? (
+                    <div className="question-text">
+                      {questions[currentQuestion].questionText}
+                    </div>
+                  ) : (
+                    <div className="question-text">
+                      {questions[currentQuestion].questionText}
+                      <br />
+                      <div>
+                        <BlockMath
+                          math={questions[currentQuestion].questionEquation}
+                        />
+                      </div>
+                    </div>
+                  )}
+  
+                  <div className="answer-section">
+                    {questions[currentQuestion].questionType === "text"
+                      ? questions[currentQuestion].answerOptions.map(
+                          (answerOption) => (
+                            <button
+                              className="quiz-btn"
+                              onClick={() =>
+                                handleAnswerOptionClick(answerOption.isCorrect)
+                              }
+                            >
+                              {answerOption.answerText}
+                            </button>
+                          )
+                        )
+                      : questions[currentQuestion].answerOptions.map(
+                          (answerOption) => (
+                            <button
+                              className="quiz-btn"
+                              onClick={() =>
+                                handleAnswerOptionClick(answerOption.isCorrect)
+                              }
+                            >
+                              <BlockMath math={answerOption.answerText} />
+                            </button>
+                          )
+                        )}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </>
+      );
+    } else{
+      window.localStorage.removeItem("counter");
+      window.localStorage.removeItem("currentQuestionPointer");
+      window.localStorage.removeItem("quizPoints");
+      const currentdate = new Date();
+      var date = [
+        currentdate.getHours(),
+        currentdate.getMinutes(),
+        currentdate.getSeconds(),
+      ];
+  
+      const quizpoints = score*10
+      const data = { date, usn ,quizpoints};
+  
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+  
+      const endvalue =
+        currentdate.getHours() * 3600 +
+        currentdate.getMinutes() * 60 +
+        currentdate.getSeconds();
+  
+      fetch("/api/2", options);
+  
+      if(page ==="crossword")
+      {
+        return <Redirect to="/Dashboard" />;
+      }
+      else if(page ==="final"){
+        return <Redirect to="/Final" />;
+      }
+      else if(page ==="login"){
+        return <Redirect to="/Login" />;
+      }
+      
     }
-    else if(page ==="final"){
-      return <Redirect to="/Final" />;
-    }
-    else if(page ==="login"){
-      return <Redirect to="/Login" />;
-    }
-    
+
   }
+  
 }
 

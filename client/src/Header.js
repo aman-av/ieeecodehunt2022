@@ -15,6 +15,7 @@ export default function Header() {
             <Nav.Link href="/Wait">Wait</Nav.Link>
             <Nav.Link href="/Dashboard">Crossword</Nav.Link>
             <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
