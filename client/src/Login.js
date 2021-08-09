@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./login_page_style.css";
 import "./css/login.css";
 
-function Login() {
+function Login(props) {
+  console.log(typeof props.eventEndDate);
   const [usn, setusn] = useState(null);
   const [page, setPage] = useState("login");
   // const [isLoading, setIsLoading] = useState("false");
-  const eventEndDate =  new Date( 2021,8,10,20,0,0,0);
-  const eventStartDate = new Date(2021, 8, 1, 20, 0, 0, 0);
+  // const eventEndDate =  new Date( 2021,8,10,20,0,0,0);
+  // const eventStartDate = new Date(2021, 8, 1, 20, 0, 0, 0);
   const currentdate = new Date();
   const timeBetweenDates = (toDate) => {
     var dateEntered = toDate;
@@ -57,12 +58,13 @@ function Login() {
       .then((result) => {
         if (result.participant[0] === undefined) {
           console.log("user doesnt exits");
+          window.alert("Only Registered Users can participate");
         } else {
           console.log(result);
           console.log(result.participant[0].intime);
           var participant = result.participant[0];
-          if (timeBetweenDates(eventStartDate) >= 0) {
-            if(timeBetweenDates(eventEndDate) < 0){
+          if (timeBetweenDates(props.eventStartDate) >= 0) {
+            if(timeBetweenDates(props.eventEndDate) < 0){
               setPage("final")
             }
             else{
@@ -98,7 +100,8 @@ function Login() {
 
   if (page === "login") {
     return (
-      <div className="back">
+      <Container>
+        <div className="back">
         <div id="stars"></div>
         <div id="stars2"></div>
         <div className="login-card">
@@ -127,6 +130,9 @@ function Login() {
           </Button>
         </div>
       </div>
+
+      </Container>
+      
     );
   } else if (page === "quiz") {
     return <Redirect to="/Quiz" />;

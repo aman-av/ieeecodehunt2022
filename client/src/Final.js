@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import check from "./images/check.svg";
 import cross from "./images/cross.svg";
 import { Redirect } from "react-router";
 
-export default function Final() {
+export default function Final(props) {
   useEffect(() => {
     window.history.pushState(null, document.title, window.location.href);
     window.addEventListener("popstate", function (event) {
@@ -25,7 +25,8 @@ export default function Final() {
     .then((res) => res.json()
     ).then(
       result => {
-        console.log(result.dates[0]);
+        console.log(props.eventStartDate.getTime())
+        console.log(result.dates[0].eventstarttime);
       }
     ).catch((e) =>{
       console.log(e);
@@ -34,7 +35,8 @@ export default function Final() {
 
   }
   return (
-    <div>
+    <Container>
+      <div>
       <div>
         <h3
           style={{
@@ -133,5 +135,8 @@ export default function Final() {
         Get Date
       </Button>
     </div>
+
+    </Container>
+    
   );
 }
