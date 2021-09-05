@@ -34,12 +34,22 @@ module.exports = (app) =>{
     app.post('/api/3',async (req,res) =>{
        
         const newDate=req.body.date;
+        const end=newDate[0]*3600+newDate[1]*60+newDate[2];
         const profile=req.body.usn;
         const crosswordpoints=req.body.crosswordpoints;
+
         console.log('API3');
+        console.log(req.body.crosswordpoints)
         console.log(profile);
-        await User.findOneAndUpdate({usn:profile},{endtime:newDate,crossworddone:true,crosswordpoints:crosswordpoints});
-    
+        
+        const member = await User.findOne({usn:profile});
+        //console.log(member.quizpoints);
+        const val=(crosswordpoints+member.quizpoints);
+        
+        console.log('begin')
+        await User.findOneAndUpdate({usn:profile},{endtime:newDate,crossworddone:true,crosswordpoints:crosswordpoints,totalpoints:val,totaltime:end});
+        console.log('end')
+        
     });
 
     app.get('/api/4/:usnId',async (req,res) => {
@@ -73,7 +83,45 @@ module.exports = (app) =>{
         })
     })
 
-    
+    // app.get('/api/1',async(req,res)=>{
+
+    //     var newArr;
+    //     User.find({}).sort({order:1}).exec(function(err, users) { 
+    //         if(err)
+    //     console.warn(err);
+    //      newArr = users.map(function(val, index){
+    //      return {key:index, value:val.name};
+    //     })
+
+
+
+    //     res.send(JSON.stringify(newArr));
+
+    //     });
+
+    //  });
+    app.get('/api/7', (req,res) => {
+        console.log('api-7')
+        // const user=await User.find().sort({"totalpoints":1});
+        // const sorteddata=user.sort({"totalpoints":1});
+        // console.log(sorteddata);
+        // res.send(sortedjson);
+        var newArr;
+         User.find({}).sort({totalpoints:-1,totaltime:1}).exec(function(err, users) { 
+            if(err)
+        console.warn(err);
+         newArr = users.map(function(val, index){
+         return {key:index, value:val};
+        })
+
+
+
+        res.send(JSON.stringify(newArr));
+
+        });
+
+
+    })
 
     
 };
