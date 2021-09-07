@@ -6,6 +6,32 @@ import cross from "./images/cross.svg";
 import { Redirect } from "react-router";
 
 export default function Final(props) {
+
+  const [arr, setarr] = useState([]);
+  useEffect(() => {
+
+    fetch('/api/7')
+    .then(response=>response.json()).then(out=>{
+      setarr(out);
+      console.log(out);})
+    
+    
+   
+      // if (result.participant[0] === undefined) {
+      //   console.log("user doesnt exits");
+      //   window.alert("Only Registered Users can participate");
+      // } else {
+      //   console.log(result);
+      //   console.log(result.participant[0].intime);
+      //   var participant = result.participant[0];
+        // console.log(result);
+      // }
+        
+     
+    
+  
+  }, [])
+
   useEffect(() => {
     window.history.pushState(null, document.title, window.location.href);
     window.addEventListener("popstate", function (event) {
@@ -62,10 +88,10 @@ export default function Final(props) {
       >
         <thead>
           <tr>
+            <th>Rank</th>
             <th>Name</th>
             <th>Round1</th>
-            <th>Round2</th>
-            <th>Rank</th>
+            <th>Round2</th> 
           </tr>
         </thead>
         <tbody
@@ -77,55 +103,15 @@ export default function Final(props) {
             backgroundColor: "rgba(119, 152, 171, 0.6)",
           }}
         >
-          <tr>
-            <td>John Doe</td>
-
-            <td>
-              <tr>
-                <img src={check} />
-              </tr>
-              <tr>3</tr>
-            </td>
-
-            <td>
-              <tr>
-                <img src={cross} />
-              </tr>
-            </td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>John Doe</td>
-            <td>
-              <tr>
-                <img src={check} />
-              </tr>
-              <tr>3</tr>
-            </td>
-            <td>
-              <tr>
-                <img src={check} />
-              </tr>
-              <tr>9</tr>
-            </td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>John Doe</td>
-            <td>
-              <tr>
-                <img src={check} />
-              </tr>
-              <tr>3</tr>
-            </td>
-            <td>
-              <tr>
-                <img src={cross} />
-              </tr>
-              <td>5</td>
-            </td>
-            <td>6</td>
-          </tr>
+           {arr.map(arr=>(
+             <tr>
+           <td>{arr.key+1}</td>
+           <td>{arr.value.name}</td>
+           <td>{arr.value.quizpoints}</td>
+           <td>{arr.value.crosswordpoints}</td>
+           </tr>
+        ))}         
+          
         </tbody>
       </Table>
       <Button onClick={handler} style={{ backgroundColor: "#850505" }}>
