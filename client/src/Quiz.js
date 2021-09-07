@@ -7,33 +7,44 @@ import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
 
 export default function Quiz(props) {
-
-  const [usn, setusn] = useState(localStorage.getItem('usn'));
+  const [usn, setusn] = useState(localStorage.getItem("usn"));
   const [page, setPage] = useState("quiz");
-  const [isLoading,setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [score, setScore] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   useEffect(() => {
     fetch(`api/4/${usn}`)
-    .then((res) => res.json())
-    .then((result) => {
-      if (result.participant[0] === undefined) {
-        console.log("user doesnt exits");
-      } else {
-        console.log(result);
-        console.log(result.participant[0].intime);
-        var participant = result.participant[0];
-        console.log(participant.crossworddone);
-        if(participant.crossworddone===true)
-        {console.log("final");setPage("final");}
-        else if(participant.quizdone===true)
-       {console.log("cw"); setPage("crossword")}
-        else if(participant.entrydone===true)
-        {console.log("quiz");setPage("quiz");}
-        else
-        {console.log("login");setPage("login");}
-        setIsLoading(false);
-      }
-    })
-  }, [])
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.participant[0] === undefined) {
+          console.log("user doesnt exits");
+          window.alert("Only Registered Users can participate");
+          setPage("login");
+        } else {
+          console.log(result);
+          console.log(result.participant[0].intime);
+          var participant = result.participant[0];
+          console.log(participant.crossworddone);
+          if (participant.crossworddone === true) {
+            console.log("final");
+            setPage("final");
+          } else if (participant.quizdone === true) {
+            console.log("cw");
+            setPage("crossword");
+          } else if (participant.entrydone === true) {
+            console.log("quiz");
+            console.log(isLoading);
+            setCurrentQuestion(participant.quizQuestionIndex);
+            setScore(participant.quizpoints);
+            setPage("quiz");
+          } else {
+            console.log("login");
+            setPage("login");
+          }
+          setIsLoading(false);
+        }
+      });
+  }, []);
 
   useEffect(() => {
     window.history.pushState(null, document.title, window.location.href);
@@ -195,7 +206,7 @@ export default function Quiz(props) {
       questionType: "text",
       questionText: "Damped sinusoids are :",
       answerOptions: [
-        { answerText: "A. Absolutely stable", isCorrect: true},
+        { answerText: "A. Absolutely stable", isCorrect: true },
         { answerText: "B. Absolutely unstable", isCorrect: false },
         { answerText: "C. Marginally stable", isCorrect: false },
         { answerText: "D. Conclusion cannot be drawn", isCorrect: false },
@@ -305,45 +316,48 @@ export default function Quiz(props) {
 
   const initialCounter = () =>
     Number(window.localStorage.getItem("counter")) || 60;
-  const currentQuestionPointer = () =>
-    Number(window.localStorage.getItem("currentQuestionPointer")) || 0;
-  const quizPoints = () =>
-    Number(window.localStorage.getItem("quizPoints")) || 0;
- 
+  // const currentQuestionPointer = () =>
+  //   Number(window.localStorage.getItem("currentQuestionPointer")) || 0;
+  // const quizPoints = () =>
+  //   Number(window.localStorage.getItem("quizPoints")) || 0;
+
   const [counter, setCounter] = useState(initialCounter);
   const [showScore, setShowScore] = useState(false);
-  const [score, setScore] = useState(quizPoints);
   const [day, setDay] = useState();
 
-  const [currentQuestion, setCurrentQuestion] = useState(
-    currentQuestionPointer
-  );
-  var timer; //just for this demo today + 7 days
+  // var timer; //just for this demo today + 7 days
 
-  timer = setInterval(function () {
-    timeBetweenDates(props.eventEndDate);
-  }, 1000);
+  // timer = setInterval(function () {
+  //   timeBetweenDates(props.eventEndDate);
+  //   return ()=> clearInterval(timer);
+  // }, 1000);
+  useEffect(()=>{
+    
+    const timer = setInterval(function () {
+      timeBetweenDates(props.eventEndDate);
+    }, 1000);
+    return ()=> clearInterval(timer);
+
+  })
 
   const timeBetweenDates = (toDate) => {
     var dateEntered = toDate;
     var now = new Date();
     var difference = dateEntered.getTime() - now.getTime();
     if (difference <= 0) {
-      clearInterval(timer);
     } else {
       var seconds = Math.floor(difference / 1000);
       var minutes = Math.floor(seconds / 60);
       var hours = Math.floor(minutes / 60);
-      var days = Math.floor(hours / 24) - 31;
+      var days = Math.floor(hours / 24) - 30;
 
       hours %= 24;
       minutes %= 60;
       seconds %= 60;
       setDay(days);
+      console.log(days);
     }
   };
-
-
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
@@ -356,60 +370,96 @@ export default function Quiz(props) {
       setShowScore(true);
     }
     setCounter(60);
-  };
-  useEffect(() => {
-    localStorage.setItem("quizPoints", score);
-    localStorage.setItem("counter", counter);
-    localStorage.setItem("currentQuestionPointer", currentQuestion);
-  }, [counter,score,currentQuestion]);
-
-  useEffect(() => {
-    if (counter > 0) {
-      const timer = setTimeout(() => setCounter(counter - 1), 1000);
-      return () => clearTimeout(timer);
-    } else {
-      const nextQuestions = currentQuestion + 1;
-      if (nextQuestions < questions.length) {
-        setCurrentQuestion(nextQuestions);
-      } else {
-        setShowScore(true);
-      }
-      setCounter(60);
-    }
-  }, [counter]);
-  useEffect(()=>{
-    if(day<0){
-        const currentdate = new Date();
-        var date = [
-          currentdate.getHours(),
-          currentdate.getMinutes(),
-          currentdate.getSeconds(),
-        ];
-        const crosswordpoints = 0;
-        const usn = localStorage.getItem("usn");
-        const data = { crosswordpoints, date, usn };
-        const options = {
+    const quizpoints = score+1;
+    const data = {quizpoints, nextQuestion, usn };
+    const options = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         };
-        fetch("/api/3", options);
-      setPage("final")
+    fetch("/api/8",options);
+    console.log(currentQuestion);
+    
+    console.log(quizpoints);
+  };
+  useEffect(() => {
+    localStorage.setItem("counter", counter);
+  }, [counter]);
+
+  // useEffect(() => {
+
+  //   const quizpoints = score;
+  //   const data = {quizpoints, currentQuestion, usn };
+  //   const options = {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(data),
+  //       };
+  //   fetch("/api/8",options);
+  // }, [score,currentQuestion]);
+
+  useEffect(() => {
+    if (counter > 0) {
+      const timer = setTimeout(() => setCounter(counter - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      const nextQuestion = currentQuestion + 1;
+      if (nextQuestion < questions.length) {
+        setCurrentQuestion(nextQuestion);
+      } else {
+        setShowScore(true);
+      }
+      const quizpoints = score;
+      const data = { quizpoints, nextQuestion, usn };
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      fetch("/api/8", options);
+      console.log(currentQuestion);
+    
+      console.log(quizpoints);
+    
+      setCounter(60);
     }
-  },[day])
+   
+  }, [counter]);
+  useEffect(() => {
+    if (day < 0) {
+      const currentdate = new Date();
+      var date = [
+        currentdate.getHours(),
+        currentdate.getMinutes(),
+        currentdate.getSeconds(),
+      ];
+      const usn = localStorage.getItem("usn");
+      const data = {date,usn};
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      fetch("/api/9", options);
+      window.localStorage.removeItem("counter");
+      setPage("final");
+    }
+  }, [day]);
 
   const handler = () => {
     setPage("crossword");
   };
-  if(isLoading){
-   return (
-    <Container>
-
-    </Container>
-   ); 
-  }else{
+  if (isLoading) {
+    return <Container></Container>;
+  } else {
     if (page === "quiz") {
       return (
         <>
@@ -417,7 +467,7 @@ export default function Quiz(props) {
             <div className="quiz" style={{ marginTop: "140px" }}>
               <div className="score-section">
                 <p>
-                  You scored {score} out of {questions.length}
+                  You scored {score*10} out of {questions.length*10}
                   <br />
                   <Button
                     onClick={handler}
@@ -442,7 +492,8 @@ export default function Quiz(props) {
               <div className="quiz">
                 <div className="question-section">
                   <div className="question-count">
-                    <span>Question {currentQuestion + 1}</span>/{questions.length}
+                    <span>Question {currentQuestion + 1}</span>/
+                    {questions.length}
                   </div>
                   {questions[currentQuestion].questionType === "text" ? (
                     <div className="question-text">
@@ -459,7 +510,7 @@ export default function Quiz(props) {
                       </div>
                     </div>
                   )}
-  
+
                   <div className="answer-section">
                     {questions[currentQuestion].questionType === "text"
                       ? questions[currentQuestion].answerOptions.map(
@@ -493,49 +544,45 @@ export default function Quiz(props) {
           )}
         </>
       );
-    } else{
-      window.localStorage.removeItem("counter");
-      window.localStorage.removeItem("currentQuestionPointer");
-      window.localStorage.removeItem("quizPoints");
-      const currentdate = new Date();
-      var date = [
-        currentdate.getHours(),
-        currentdate.getMinutes(),
-        currentdate.getSeconds(),
-      ];
-  
-      const quizpoints = score*10
-      const data = { date, usn ,quizpoints};
-  
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-  
-      const endvalue =
-        currentdate.getHours() * 3600 +
-        currentdate.getMinutes() * 60 +
-        currentdate.getSeconds();
-  
-      fetch("/api/2", options);
-  
-      if(page ==="crossword")
-      {
+    } else {
+      if (page === "crossword") {
+        window.localStorage.removeItem("counter");
+        // window.localStorage.removeItem("currentQuestionPointer");
+        // window.localStorage.removeItem("quizPoints");
+        const currentdate = new Date();
+        var date = [
+          currentdate.getHours(),
+          currentdate.getMinutes(),
+          currentdate.getSeconds(),
+        ];
+        const data = { date, usn};
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+
+        const endvalue =
+          currentdate.getHours() * 3600 +
+          currentdate.getMinutes() * 60 +
+          currentdate.getSeconds();
+
+        async function sendDetails(){
+          await fetch("/api/2", options);
+        }
+
+        sendDetails();
+
+        
         return <Redirect to="/Dashboard" />;
-      }
-      else if(page ==="final"){
+      } else if (page === "final") {
         return <Redirect to="/Final" />;
-      }
-      else if(page ==="login"){
+      } else if (page === "login") {
         return <Redirect to="/Login" />;
       }
-      
     }
-
   }
-  
 }
-

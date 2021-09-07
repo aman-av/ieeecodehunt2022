@@ -353,7 +353,7 @@ function Dashboard(props) {
     currentdate.getMinutes(),
     currentdate.getSeconds(),
   ];
-  var timer;
+  
 
   const [usn, setusn] = useState(localStorage.getItem("usn"));
   const [page, setPage] = useState("crossword");
@@ -366,54 +366,82 @@ function Dashboard(props) {
 
   const [day, setDay] = useState();
   useEffect(() => {
-    
-    fetch(`api/4/${usn}`)
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.participant[0] === undefined) {
-          window.alert("Only Registered Users can participate");
-        } else {
-          console.log(result);
-          console.log(result.participant[0].intime);
-          var participant = result.participant[0];
-          console.log(participant.crossworddone);
-          if (participant.crossworddone === true) {
-            console.log("final");
-            setPage("final");
-          } else if (participant.quizdone === true) {
-            console.log("cw");
-            setPage("crossword");
-          } else if (participant.entrydone === true) {
-            console.log("quiz");
-            setPage("quiz");
-          } else {
-            console.log("login");
+      fetch(`api/4/${usn}`)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.participant[0] === undefined) {
+            console.log("user doesnt exits");
+            window.alert("Only Registered Users can participate");
             setPage("login");
+          } else {
+            console.log(result);
+            console.log(result.participant[0].intime);
+            var participant = result.participant[0];
+            console.log(participant.crossworddone);
+            if (participant.crossworddone === true) {
+              console.log("final");
+              setPage("final");
+            } else if (participant.quizdone === true) {
+              setPage("crossword");
+            } else if (participant.entrydone === true) {
+              setPage("quiz");
+            } else {
+              setPage("login");
+            }
+            setLoading(false);
           }
-          setLoading(false);
-        }
-      });
+        });
+    
+    // fetch(`api/4/${usn}`)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     if (result.participant[0] === undefined) {
+    //       window.alert("Only Registered Users can participate");
+    //     } else {
+    //       console.log(result);
+    //       console.log(result.participant[0].intime);
+    //       var participant = result.participant[0];
+    //       if (participant.crossworddone === true) {
+    //         setPage("final");
+    //       } else if (participant.quizdone === true) {
+    //         setPage("crossword");
+    //       } else if (participant.entrydone === true) {
+    //         setPage("quiz");
+    //       } else {
+    //         setPage("login");
+    //       }
+    //       setLoading(false);
+    //     }
+    //   });
   }, []);
+  // var timer;
+  // timer = setInterval(function () {
+  //   timeBetweenDates(props.eventEndDate);
+  //   return ()=>clearInterval(timer);
+  // }, 1000);
+  useEffect(()=>{
+    const timer = setInterval(function () {
+      timeBetweenDates(props.eventEndDate);
+    }, 1000);
+    return ()=> clearInterval(timer);
 
-  timer = setInterval(function () {
-    timeBetweenDates(props.eventEndDate);
-  }, 1000);
+  })
 
   const timeBetweenDates = (toDate) => {
     var dateEntered = toDate;
     var now = new Date();
     var difference = dateEntered.getTime() - now.getTime();
     if (difference <= 0) {
-      clearInterval(timer);
     } else {
       var seconds = Math.floor(difference / 1000);
       var minutes = Math.floor(seconds / 60);
       var hours = Math.floor(minutes / 60);
-      var days = Math.floor(hours / 24) - 31;
+      var days = Math.floor(hours / 24) - 30;
 
       hours %= 24;
       minutes %= 60;
       seconds %= 60;
+      console.log(days);
       setDay(days);
     }
   };
@@ -436,7 +464,9 @@ function Dashboard(props) {
   });
   useEffect(() => {
     if (day < 0) {
-      setMessages("final");
+      const points = getPoints();
+      setScore(points);
+      setPage("final");
     }
   }, [day]);
 
@@ -465,7 +495,8 @@ function Dashboard(props) {
   const handleDone = () => {
     const points = getPoints();
     setScore(points);
-    setMessages("true");
+    setPage("final");
+    // setMessages("true");
   };
   const getPoints = ()=>{
     var points =0;
@@ -518,7 +549,6 @@ function Dashboard(props) {
     return <Container></Container>;
   } else {
     if (page === "crossword") {
-      if (messages == false) {
         return (
           <div style={mystyle}>
             <Container>
@@ -542,7 +572,7 @@ function Dashboard(props) {
                       fontSize: "30px",
                     }}
                   >
-                    {Math.floor(crosswordCounter / 3600) % 24}:
+                    {(Math.floor(crosswordCounter / 3600) % 24)}:
                     {Math.floor(crosswordCounter / 60) % 60}:
                     {crosswordCounter % 60}
                   </p>
@@ -561,8 +591,8 @@ function Dashboard(props) {
               >
                 Reset
               </Button>
-              <Button onClick={() => getPoints()}>GetScore</Button>
-              <Button onClick={() => handleDone()}>Done</Button>
+              {/* <Button onClick={() => getPoints()}>GetScore</Button>
+              <Button onClick={() => handleDone()}>Done</Button> */}
 
               <h4>{messages}</h4>
 
@@ -587,8 +617,9 @@ function Dashboard(props) {
             </Container>
           </div>
         );
-      } else {
-        window.localStorage.removeItem("crosswordCounter");
+                  
+    } else if (page === "final") {
+      window.localStorage.removeItem("crosswordCounter");
         const currentdate = new Date();
         var date = [
           currentdate.getHours(),
@@ -609,9 +640,6 @@ function Dashboard(props) {
           body: JSON.stringify(data),
         };
         fetch("/api/3", options);
-        return <Redirect to="/Final" />;
-      }
-    } else if (page === "final") {
       return <Redirect to="/Final" />;
     } else if (page === "quiz") {
       return <Redirect to="/Quiz" />;

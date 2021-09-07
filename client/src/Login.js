@@ -24,7 +24,7 @@ function Login(props) {
       var seconds = Math.floor(difference / 1000);
       var minutes = Math.floor(seconds / 60);
       var hours = Math.floor(minutes / 60);
-      var days = Math.floor(hours / 24) - 31;
+      var days = Math.floor(hours / 24) - 30;
 
       hours %= 24;
       minutes %= 60;
@@ -59,6 +59,7 @@ function Login(props) {
         if (result.participant[0] === undefined) {
           console.log("user doesnt exits");
           window.alert("Only Registered Users can participate");
+          setPage("login");
         } else {
           console.log(result);
           console.log(result.participant[0].intime);
@@ -94,9 +95,9 @@ function Login(props) {
         }
       });
   };
-  useEffect(() => {
-    console.log(usn);
-  }, [usn]);
+  // useEffect(() => {
+  //   console.log(usn);
+  // }, [usn]);
 
   if (page === "login") {
     return (
@@ -115,7 +116,7 @@ function Login(props) {
               type="text"
               name="usn"
               value={usn}
-              onChange={(e) => setusn(e.target.value)}
+              onChange={(e) => setusn(e.target.value.toUpperCase())}
               style={{ margin: "0.75rem", justifyContent: "center" }}
             />
           </form>
