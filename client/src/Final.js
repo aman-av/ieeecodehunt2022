@@ -1,9 +1,6 @@
 import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import check from "./images/check.svg";
-import cross from "./images/cross.svg";
-import { Redirect } from "react-router";
 
 export default function Final(props) {
 
@@ -11,26 +8,15 @@ export default function Final(props) {
   useEffect(() => {
 
     fetch('/api/7')
-    .then(response=>response.json()).then(out=>{
+    .then(response=>response.json())
+    .then(out=>{
       setarr(out);
-      console.log(out);})
-    
-    
-   
-      // if (result.participant[0] === undefined) {
-      //   console.log("user doesnt exits");
-      //   window.alert("Only Registered Users can participate");
-      // } else {
-      //   console.log(result);
-      //   console.log(result.participant[0].intime);
-      //   var participant = result.participant[0];
-        // console.log(result);
-      // }
+    })
         
      
     
   
-  }, [])
+  }, [arr])
 
   useEffect(() => {
     window.history.pushState(null, document.title, window.location.href);
@@ -91,7 +77,8 @@ export default function Final(props) {
             <th>Rank</th>
             <th>Name</th>
             <th>Round1</th>
-            <th>Round2</th> 
+            <th>Round2</th>
+            <th>Total</th> 
           </tr>
         </thead>
         <tbody
@@ -104,11 +91,12 @@ export default function Final(props) {
           }}
         >
            {arr.map(arr=>(
-             <tr>
+             <tr key = {arr.value._id}>
            <td>{arr.key+1}</td>
            <td>{arr.value.name}</td>
-           <td>{arr.value.quizpoints}</td>
+           <td>{arr.value.quizpoints*10}</td>
            <td>{arr.value.crosswordpoints}</td>
+           <td>{arr.value.totalpoints}</td>
            </tr>
         ))}         
           
