@@ -8,6 +8,7 @@ const userSchema = new Schema({
     quiztime:[{type:Number,default:0}],
     endtime:[{type:Number,default:0}],
     quizpoints:{type:Number,default:0},
+    quizCountDownTime:{type :Number , default:0},
     quizQuestionIndex:{type:Number,default:0},
     crosswordpoints:{type:Number,default:0},
     entrydone:{type:Boolean, default:false},

@@ -5,7 +5,6 @@ import "./login_page_style.css";
 import "./css/login.css";
 
 function Login(props) {
-  console.log(typeof props.eventEndDate);
   const [usn, setusn] = useState(null);
   const [page, setPage] = useState("login");
   // const [isLoading, setIsLoading] = useState("false");
@@ -36,16 +35,14 @@ function Login(props) {
 
   const handler = () => {
     localStorage.setItem("usn", usn);
-
-    console.log(usn);
-
     var date = [
       currentdate.getHours(),
       currentdate.getMinutes(),
       currentdate.getSeconds(),
     ];
-
-    const data = { usn, date };
+    const now = new Date();
+    const quizCountDownTime = now.getTime();
+    const data = { usn, date ,quizCountDownTime};
     const options = {
       method: "POST",
       headers: {
@@ -88,8 +85,9 @@ function Login(props) {
                 setPage("final");
               }
             } else {
-              fetch("/api/1", options);
-              setPage("quiz");
+              fetch("/api/1", options).then(()=>{
+                setPage("quiz");
+              });
             }
           }
         }

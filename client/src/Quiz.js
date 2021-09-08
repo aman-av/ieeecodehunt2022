@@ -7,52 +7,6 @@ import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
 
 export default function Quiz(props) {
-  const [usn, setusn] = useState(localStorage.getItem("usn"));
-  const [page, setPage] = useState("quiz");
-  const [isLoading, setIsLoading] = useState(true);
-  const [score, setScore] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  useEffect(() => {
-    fetch(`api/4/${usn}`)
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.participant[0] === undefined) {
-          console.log("user doesnt exits");
-          window.alert("Only Registered Users can participate");
-          setPage("login");
-        } else {
-          console.log(result);
-          console.log(result.participant[0].intime);
-          var participant = result.participant[0];
-          console.log(participant.crossworddone);
-          if (participant.crossworddone === true) {
-            console.log("final");
-            setPage("final");
-          } else if (participant.quizdone === true) {
-            console.log("cw");
-            setPage("crossword");
-          } else if (participant.entrydone === true) {
-            console.log("quiz");
-            console.log(isLoading);
-            setCurrentQuestion(participant.quizQuestionIndex);
-            setScore(participant.quizpoints);
-            setPage("quiz");
-          } else {
-            console.log("login");
-            setPage("login");
-          }
-          setIsLoading(false);
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener("popstate", function (event) {
-      window.history.pushState(null, document.title, this.window.location.href);
-    });
-  });
-
   const questions = [
     {
       questionType: "text",
@@ -313,32 +267,17 @@ export default function Quiz(props) {
     //   displayImage: false,
     // },
   ];
-
-  const initialCounter = () =>
-    Number(window.localStorage.getItem("counter")) || 60;
-  // const currentQuestionPointer = () =>
-  //   Number(window.localStorage.getItem("currentQuestionPointer")) || 0;
-  // const quizPoints = () =>
-  //   Number(window.localStorage.getItem("quizPoints")) || 0;
-
-  const [counter, setCounter] = useState(initialCounter);
+  const [usn, setusn] = useState(localStorage.getItem("usn"));
+  const [page, setPage] = useState("quiz");
+  const [isLoading, setIsLoading] = useState(true);
+  const [score, setScore] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  // const initialCounter = () =>
+  //   Number(window.localStorage.getItem("counter")) || 60;
+  const [countDownTime, setCountDownTime] = useState(0);
+  const [counter, setCounter] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [day, setDay] = useState();
-
-  // var timer; //just for this demo today + 7 days
-
-  // timer = setInterval(function () {
-  //   timeBetweenDates(props.eventEndDate);
-  //   return ()=> clearInterval(timer);
-  // }, 1000);
-  useEffect(()=>{
-    
-    const timer = setInterval(function () {
-      timeBetweenDates(props.eventEndDate);
-    }, 1000);
-    return ()=> clearInterval(timer);
-
-  })
 
   const timeBetweenDates = (toDate) => {
     var dateEntered = toDate;
@@ -355,9 +294,97 @@ export default function Quiz(props) {
       minutes %= 60;
       seconds %= 60;
       setDay(days);
-      console.log(days);
     }
   };
+  const getDifference = (toDate) => {
+    var dateEntered = toDate;
+    var now = new Date();
+    var difference = dateEntered.getTime() - now.getTime();
+    if (difference <= 0) {
+    } else {
+      var seconds = Math.floor(difference / 1000);
+      var minutes = Math.floor(seconds / 60);
+      var hours = Math.floor(minutes / 60);
+      var days = Math.floor(hours / 24) - 30;
+
+      hours %= 24;
+      minutes %= 60;
+      seconds %= 60;
+      return days;
+    }
+  };
+  useEffect(() => {
+    const countDown = setInterval(function () {
+      var now =  new Date()
+      var difference = now.getTime() - countDownTime;
+      
+      if(countDownTime <=0 ){
+      }else{
+        var seconds = Math.floor(difference/1000);
+        seconds %= 60;
+        setCounter(60 - seconds);
+      }
+    },1000);
+    return () => clearInterval(countDown);
+  })
+
+  useEffect(() => {
+    const timer = setInterval(function () {
+      timeBetweenDates(props.eventEndDate);
+    }, 1000);
+    return () => clearInterval(timer);
+  });
+  useEffect(() => {
+    if (getDifference(props.eventStartDate) >= 0) {
+      setIsLoading(false);
+      if (getDifference(props.eventEndDate) < 0) {
+        setPage("final");
+      } else {
+        setPage("wait");
+      }
+
+    } else {
+      fetch(`api/4/${usn}`)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.participant[0] === undefined) {
+            console.log("user doesnt exits");
+            window.alert("Only Registered Users can participate");
+            setPage("login");
+          } else {
+            console.log(result);
+            console.log(result.participant[0].intime);
+            var participant = result.participant[0];
+            console.log(participant.crossworddone);
+            if (participant.crossworddone === true) {
+              console.log("final");
+              setPage("final");
+            } else if (participant.quizdone === true) {
+              console.log("cw");
+              setPage("crossword");
+            } else if (participant.entrydone === true) {
+              console.log("quiz");
+              console.log(isLoading);
+              setCurrentQuestion(participant.quizQuestionIndex);
+              setScore(participant.quizpoints);
+              setCountDownTime(participant.quizCountDownTime);
+              setPage("quiz");
+            } else {
+              console.log("login");
+              setPage("login");
+            }
+            setIsLoading(false);
+          }
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener("popstate", function (event) {
+      window.history.pushState(null, document.title, this.window.location.href);
+    });
+  });
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
@@ -369,52 +396,51 @@ export default function Quiz(props) {
     } else {
       setShowScore(true);
     }
-    setCounter(60);
-    const quizpoints = score+1;
-    const data = {quizpoints, nextQuestion, usn };
+    // setCounter(60);
+    const now =  new Date();
+    const quizpoints = score + 1;
+    const quizCountDownTime = now.getTime();
+    console.log(quizCountDownTime);
+    const data = { quizpoints, nextQuestion, usn,quizCountDownTime };
     const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        };
-    fetch("/api/8",options);
-    console.log(currentQuestion);
-    
-    console.log(quizpoints);
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    setIsLoading(true);
+    fetch("/api/8", options).then((res) => {
+      setIsLoading(false);
+      setCountDownTime(quizCountDownTime);
+
+    });
   };
-  useEffect(() => {
-    localStorage.setItem("counter", counter);
-  }, [counter]);
-
   // useEffect(() => {
-
-  //   const quizpoints = score;
-  //   const data = {quizpoints, currentQuestion, usn };
-  //   const options = {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(data),
-  //       };
-  //   fetch("/api/8",options);
-  // }, [score,currentQuestion]);
+  //   localStorage.setItem("counter", counter);
+  // }, [counter]);
 
   useEffect(() => {
-    if (counter > 0) {
-      const timer = setTimeout(() => setCounter(counter - 1), 1000);
-      return () => clearTimeout(timer);
+    if (counter === 0){
+      console.log(counter);
+    }
+    else if (counter > 1) {
+      // const timer = setTimeout(() => setCounter(counter - 1), 1000);
+      // return () => clearTimeout(timer);
+      console.log(counter);
     } else {
+      console.log("next");
       const nextQuestion = currentQuestion + 1;
       if (nextQuestion < questions.length) {
         setCurrentQuestion(nextQuestion);
       } else {
         setShowScore(true);
       }
+      const now =  new Date();
       const quizpoints = score;
-      const data = { quizpoints, nextQuestion, usn };
+      const quizCountDownTime = now.getTime();
+      const data = { quizpoints, nextQuestion, usn ,quizCountDownTime};
+      
       const options = {
         method: "POST",
         headers: {
@@ -422,14 +448,14 @@ export default function Quiz(props) {
         },
         body: JSON.stringify(data),
       };
-      fetch("/api/8", options);
-      console.log(currentQuestion);
-    
-      console.log(quizpoints);
-    
-      setCounter(60);
+      setIsLoading(true);
+      fetch("/api/8", options).then((res) => {
+        setIsLoading(false);
+        setCountDownTime(quizCountDownTime);
+      });
+      
+      
     }
-   
   }, [counter]);
   useEffect(() => {
     if (day < 0) {
@@ -440,7 +466,7 @@ export default function Quiz(props) {
         currentdate.getSeconds(),
       ];
       const usn = localStorage.getItem("usn");
-      const data = {date,usn};
+      const data = { date,usn};
       const options = {
         method: "POST",
         headers: {
@@ -448,14 +474,38 @@ export default function Quiz(props) {
         },
         body: JSON.stringify(data),
       };
-      fetch("/api/9", options);
-      window.localStorage.removeItem("counter");
-      setPage("final");
+      setIsLoading(true);
+      fetch("/api/9", options).then((res) => {
+        setIsLoading(false);
+        setPage("final");
+      });
+ 
+ 
     }
   }, [day]);
 
   const handler = () => {
-    setPage("crossword");
+    const currentdate = new Date();
+    var date = [
+      currentdate.getHours(),
+      currentdate.getMinutes(),
+      currentdate.getSeconds(),
+    ];
+    const data = { date, usn };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    setIsLoading(true);
+    fetch("/api/2", options).then((res) => {
+      window.localStorage.removeItem("counter");
+      setIsLoading(false);
+      setPage("crossword");
+    });
   };
   if (isLoading) {
     return <Container></Container>;
@@ -467,7 +517,7 @@ export default function Quiz(props) {
             <div className="quiz" style={{ marginTop: "140px" }}>
               <div className="score-section">
                 <p>
-                  You scored {score*10} out of {questions.length*10}
+                  You scored {score * 10} out of {questions.length * 10}
                   <br />
                   <Button
                     onClick={handler}
@@ -545,43 +595,45 @@ export default function Quiz(props) {
         </>
       );
     } else {
-      if (page === "crossword") {
-        window.localStorage.removeItem("counter");
-        // window.localStorage.removeItem("currentQuestionPointer");
-        // window.localStorage.removeItem("quizPoints");
-        const currentdate = new Date();
-        var date = [
-          currentdate.getHours(),
-          currentdate.getMinutes(),
-          currentdate.getSeconds(),
-        ];
-        const data = { date, usn};
+      if (page == "crossword") {
+        // window.localStorage.removeItem("counter");
+        // // window.localStorage.removeItem("currentQuestionPointer");
+        // // window.localStorage.removeItem("quizPoints");
+        // const currentdate = new Date();
+        // var date = [
+        //   currentdate.getHours(),
+        //   currentdate.getMinutes(),
+        //   currentdate.getSeconds(),
+        // ];
+        // const data = { date, usn};
 
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        };
+        // const options = {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(data),
+        // };
 
-        const endvalue =
-          currentdate.getHours() * 3600 +
-          currentdate.getMinutes() * 60 +
-          currentdate.getSeconds();
+        // const endvalue =
+        //   currentdate.getHours() * 3600 +
+        //   currentdate.getMinutes() * 60 +
+        //   currentdate.getSeconds();
+        // setIsLoading(true);
+        // fetch("/api/2", options).then((res)=>{
+        //   setIsLoading(false);
+        //   console.log(res.json());
+        //   console.log("done");
+        //   return <Redirect to="/Dashboard" />;
+        // });
 
-        async function sendDetails(){
-          await fetch("/api/2", options);
-        }
-
-        sendDetails();
-
-        
         return <Redirect to="/Dashboard" />;
       } else if (page === "final") {
         return <Redirect to="/Final" />;
       } else if (page === "login") {
-        return <Redirect to="/Login" />;
+        return <Redirect to="/" />;
+      }else if(page === "wait"){
+        return <Redirect to="/Wait"/>;
       }
     }
   }
