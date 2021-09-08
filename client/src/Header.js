@@ -9,13 +9,13 @@ export default function Header() {
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto" style={{ color: "black" }}>
-            <Nav.Link href="/Final">Home</Nav.Link>
+            <Nav.Link href="/Final">Leaderboard</Nav.Link>
             <Nav.Link href="/">Login</Nav.Link>
             <Nav.Link href="/Quiz">Quiz</Nav.Link>
             <Nav.Link href="/Wait">Wait</Nav.Link>
             <Nav.Link href="/Dashboard">Crossword</Nav.Link>
-            <Nav.Link href="/Example">Example</Nav.Link>
-            <Nav.Link href="/Test">Test</Nav.Link>
+            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
         </Container>
       </Navbar>

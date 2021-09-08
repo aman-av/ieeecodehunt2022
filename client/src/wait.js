@@ -49,7 +49,7 @@ export default function WaitPage(props) {
   useEffect(() => {
     if (day < 0) {
       setIsLoading(true);
-      setPage(false);
+      
       const usn=  localStorage.getItem("usn");
       const currentdate = new Date();
       var date = [
@@ -57,7 +57,9 @@ export default function WaitPage(props) {
         currentdate.getMinutes(),
         currentdate.getSeconds(),
       ];
-      const data = { usn, date };
+      const now = new Date();
+      const quizCountDownTime = now.getTime();
+      const data = { usn, date,quizCountDownTime };
       const options = {
         method: "POST",
         headers: {
@@ -65,10 +67,19 @@ export default function WaitPage(props) {
         },
         body: JSON.stringify(data),
       };
-      fetch("/api/1", options);
-      setIsLoading(false);
+      fetch("/api/1", options).then((res)=>{
+        console.log("wait");
+        setIsLoading(false);
+        setPage(false);
+      });
+      
+    }
+    else{
+      console.log("not wait");
     }
   }, [day]);
+
+  
   if (isLoading) {
     return <Container />;
   } else {
