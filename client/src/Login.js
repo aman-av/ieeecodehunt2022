@@ -3,8 +3,11 @@ import { Button, Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./login_page_style.css";
 import "./css/login.css";
+import {  Navbar, Nav } from "react-bootstrap";
+
 
 function Login(props) {
+  
   const [usn, setusn] = useState(null);
   const [page, setPage] = useState("login");
   // const [isLoading, setIsLoading] = useState("false");
@@ -61,6 +64,9 @@ function Login(props) {
           console.log(result);
           console.log(result.participant[0].intime);
           var participant = result.participant[0];
+          console.log(participant.name)
+          // setname(participant.name);
+          localStorage.setItem('name',participant.name);
           if (timeBetweenDates(props.eventStartDate) >= 0) {
             if(timeBetweenDates(props.eventEndDate) < 0){
               setPage("final")
@@ -100,6 +106,21 @@ function Login(props) {
   if (page === "login") {
     return (
       <Container>
+        <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        <Container>
+          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
+          <Nav className="me-auto" style={{ color: "black" }}>
+         
+            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
+            <Nav.Link href="/">Login</Nav.Link>
+            <Nav.Link href="/Quiz">Quiz</Nav.Link>
+            <Nav.Link href="/Wait">Wait</Nav.Link>
+            <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
+            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
+          </Nav>
+        </Container>
+      </Navbar>
         <div className="back">
         <div id="stars"></div>
         <div id="stars2"></div>

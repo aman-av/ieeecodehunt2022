@@ -14,7 +14,7 @@ function App() {
   const eventStartDate = new Date(2021,9,8,16,9,0,0);
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div >
         <BrowserRouter>
           <div>
