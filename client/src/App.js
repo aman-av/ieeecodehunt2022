@@ -10,8 +10,8 @@ import Example from "./example";
 import Test from "./Test";
 
 function App() {
-  const eventEndDate =  new Date(2021,9,9,16,31,0,0);
-  const eventStartDate = new Date(2021,9,9,16,9,0,0);
+  const eventEndDate =  new Date(2021,9,9,18,0,0,0);
+  const eventStartDate = new Date(2021,9,9,17,30,0,0);
   return (
     <div>
       {/* <Header /> */}
