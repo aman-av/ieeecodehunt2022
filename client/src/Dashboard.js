@@ -406,7 +406,6 @@ function Dashboard(props) {
   const handleDone = () => {
     const points = getPoints();
     console.log("step1");
-    window.localStorage.removeItem("crosswordCounter");
     const currentdate = new Date();
     var date = [
       currentdate.getHours(),
