@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import "./login_page_style.css";
 import "./css/login.css";
 import {  Navbar, Nav } from "react-bootstrap";
-
+import img from './images/1.jpeg'
 
 function Login(props) {
   
@@ -108,7 +108,16 @@ function Login(props) {
       <div>
         <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-          <Navbar.Brand href="#home">SPS logo  </Navbar.Brand>
+        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <img
+          alt=""
+          src={img}
+          width="50"
+          height="50"
+          className="d-inline-block align-top"
+        />{' '}
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+      </Navbar.Brand>
           <Nav className="me-auto" style={{ color: "black" }}>
          
             {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
@@ -119,6 +128,7 @@ function Login(props) {
             {/* <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
+          
         </Container>
       </Navbar>
         <div className="back">
