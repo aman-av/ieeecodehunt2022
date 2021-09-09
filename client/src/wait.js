@@ -4,6 +4,7 @@ import "./wait-page-style.css";
 import "./login_page_style.css";
 import { Redirect } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 
 export default function WaitPage(props) {
   const [day, setDay] = useState();
@@ -85,13 +86,32 @@ export default function WaitPage(props) {
   } else {
     if (page == true) {
       return (
+      <div>
+        <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        <Container>
+          <Navbar.Brand href="#home">SPS logo  </Navbar.Brand>
+          <Nav className="me-auto" style={{ color: "black" }}>
+          <Navbar.Text style = {{alignContent:"center"}}>
+            {localStorage.getItem('name')} 
+          </Navbar.Text>
+         
+            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
+            <Nav.Link href="/">Login</Nav.Link>
+            <Nav.Link href="/Quiz">Quiz</Nav.Link>
+            <Nav.Link href="/Wait">Wait</Nav.Link>
+            <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
+            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
+          </Nav>
+        </Container>
+      </Navbar>
         <section className="timer-container">
           <div id="stars"></div>
           <div id="stars2"></div>
           <section className="timer">
             <div>
               <span className="mdi mdi-calender-clock timer-icon"></span>
-              <h2>Countdown Timer</h2>
+              <h2>Event will start in:</h2>
             </div>
             <div>
               <section>
@@ -152,6 +172,7 @@ export default function WaitPage(props) {
             </div>
           </section>
         </section>
+        </div>
       );
     } else {
       return <Redirect to="/Quiz" />;

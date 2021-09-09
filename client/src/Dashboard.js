@@ -354,8 +354,8 @@ function Dashboard(props) {
   const [usn, setusn] = useState(localStorage.getItem("usn"));
   const [page, setPage] = useState("crossword");
   const [isLoading, setLoading] = useState(true);
-  const [second,setSecond] = useState(0);
-  const [minute,setMinute] = useState(0);
+  const [second, setSecond] = useState(0);
+  const [minute, setMinute] = useState(0);
   // const [crosswordCounter, setCrosswordCounter] =
   //   useState(intiCrosswordCounter);
 
@@ -408,7 +408,6 @@ function Dashboard(props) {
   const handleDone = () => {
     const points = getPoints();
     console.log("step1");
-    window.localStorage.removeItem("crosswordCounter");
     const currentdate = new Date();
     var date = [
       currentdate.getHours(),
@@ -463,8 +462,8 @@ function Dashboard(props) {
       D10: 4,
     };
     var data = localStorage.getItem("guesses");
-    if(data == undefined){
-      data = {"date":1631102422824,"guesses":{}};
+    if (data == undefined) {
+      data = { date: 1631102422824, guesses: {} };
     }
     const guesses = JSON.parse(data).guesses;
     Object.keys(guesses).forEach((guess_key) => {
@@ -581,8 +580,8 @@ function Dashboard(props) {
   }, []);
 
   const mystyle = {
-    height: "100vh",
-    width: "100vw",
+    // height: "60%",
+    // width: "60vw",
   };
   const onCrosswordCorrect = useCallback(
     (isCorrect) => {
@@ -600,93 +599,94 @@ function Dashboard(props) {
   } else {
     if (page === "crossword") {
       return (
-        <div style={mystyle}>
-          <Container>
-
+        <div>
+        {/* // <Container> */}
           <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
-        <Container>
-          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
-          <Nav className="me-auto" style={{ color: "black" }}>
-          <Navbar.Text>
-            Signed in as: {localStorage.getItem('name')} 
-          </Navbar.Text>
-            <Nav.Link href="/Final">Leaderboard</Nav.Link>
-            {/* <Nav.Link href="/">Login</Nav.Link> */}
-            {/* <Nav.Link href="/Quiz">Quiz</Nav.Link> */}
-            {/* <Nav.Link href="/Wait">Wait</Nav.Link> */}
-            {/* <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
-            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Container>
+              <Navbar.Brand href="#home">SPS logo </Navbar.Brand>
+              <Nav className="me-auto" style={{ color: "black" }}>
+                <Navbar.Text>
+                  {localStorage.getItem("name")}
+                </Navbar.Text>
+                <Nav.Link href="/Final">Leaderboard</Nav.Link>
+                {/* <Nav.Link href="/">Login</Nav.Link> */}
+                {/* <Nav.Link href="/Quiz">Quiz</Nav.Link> */}
+                {/* <Nav.Link href="/Wait">Wait</Nav.Link> */}
+                {/* <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
+                {/* <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
-          </Nav>
-        </Container>
-         </Navbar>
-            <Row>
-              <Col></Col>
-              <Col></Col>
-              <Col>
-                <p
-                  style={{
-                    position: "absolute",
-                    alignContent: "center",
-                    textAlign: "center",
-                    alignItems: "center",
-                    marginTop: "5px",
-                    //  marginBottom:"10px",
-                    //  marginLeft:"35%",
-                    //  marginRight:"35%",
-                    border: "3px solid #7798AB",
-                    color: "#7798AB",
-                    padding: "10px",
-                    fontSize: "30px",
-                  }}
-                >
-                  {/* {Math.floor(crosswordCounter / 3600) % 24}:
+              </Nav>
+            </Container>
+          </Navbar>
+          <Row>
+            <Col></Col>
+            <Col></Col>
+            <Col>
+              <p
+                style={{
+                  position: "absolute",
+                  alignContent: "center",
+                  textAlign: "center",
+                  alignItems: "center",
+                  marginTop: "5px",
+                  //  marginBottom:"10px",
+                  //  marginLeft:"35%",
+                  //  marginRight:"35%",
+                  border: "3px solid #7798AB",
+                  color: "#7798AB",
+                  padding: "10px",
+                  fontSize: "30px",
+                }}
+              >
+                {/* {Math.floor(crosswordCounter / 3600) % 24}:
                   {Math.floor(crosswordCounter / 60) % 60}:
                   {crosswordCounter % 60} */}
-                  {minute}:{second}
-                  {/* {minute<10 ? <p>0{minute}</p> : <p>{minute}</p>} : {second} */}
-                  {/* {minute<0 ? {0{minute}} :{minute}}:
+                {minute}:{second}
+                {/* {minute<10 ? <p>0{minute}</p> : <p>{minute}</p>} : {second} */}
+                {/* {minute<0 ? {0{minute}} :{minute}}:
                   {second<0 ? {0{second}} :{second}} */}
+              </p>
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
+          <Button
+            onClick={reset}
+            style={{
+              position: "absolute",
+              right: 8,
+              top: 10,
+              backgroundColor: "#011624",
+            }}
+          >
+            Reset
+          </Button>
+          {/* <Button onClick={() => getPoints()}>GetScore</Button>
+          <Button onClick={() => handleDone()}>Done</Button> */}
 
-                </p>
-              </Col>
-              <Col></Col>
-              <Col></Col>
-            </Row>
-            <Button
-              onClick={reset}
-              style={{
-                position: "absolute",
-                right: 8,
-                top: 10,
-                backgroundColor: "#011624",
-              }}
+          <h4>{messages}</h4>
+
+          <Row>
+            <CrosswordWrapper
+              style={{paddingRight: "200px", paddingLeft :" 200px", marginTop: "70px", color: "#7798AB" }}
             >
-              Reset
-            </Button>
-            <Button onClick={() => getPoints()}>GetScore</Button>
-            <Button onClick={() => handleDone()}>Done</Button>
-
-            <h4>{messages}</h4>
-
-            <Row>
-              <CrosswordWrapper style={{ marginTop: "70px", color: "#7798AB" }}>
-                <Crossword
-                  style={{ height: "250px" }}
-                  data={data}
-                  ref={crossword}
-                  theme={{
-                    gridBackground: "#7798AB",
-                    cellBackground: "grey",
-                    numberColor: "rgba(0,0,0,1)",
-                    focusBackground: "#ffd717",
-                  }}
-                  onCrosswordCorrect={onCrosswordCorrect}
-                />
-              </CrosswordWrapper>
-            </Row>
-          </Container>
+              <Crossword
+                style={{ height: "100px" }}
+                data={data}
+                ref={crossword}
+                theme={{
+                  gridBackground: "#7798AB",
+                  cellBackground: "grey",
+                  numberColor: "rgba(0,0,0,1)",
+                  focusBackground: "#ffd717",
+                }}
+                onCrosswordCorrect={onCrosswordCorrect}
+              />
+            </CrosswordWrapper>
+          </Row>
         </div>
+        // {/* </Container> */}
+        
       );
     } else if (page === "final") {
       // console.log("step1");

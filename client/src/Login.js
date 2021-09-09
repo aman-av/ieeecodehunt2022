@@ -105,10 +105,10 @@ function Login(props) {
 
   if (page === "login") {
     return (
-      <Container>
+      <div>
         <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
+          <Navbar.Brand href="#home">SPS logo  </Navbar.Brand>
           <Nav className="me-auto" style={{ color: "black" }}>
          
             {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
@@ -146,12 +146,12 @@ function Login(props) {
             backgroundColor="#011624"
             onClick={handler}
           >
-            Start Quiz
+            Enter Event
           </Button>
         </div>
       </div>
+      </div>
 
-      </Container>
       
     );
   } else if (page === "quiz") {
