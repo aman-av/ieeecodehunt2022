@@ -5,6 +5,8 @@ import "katex/dist/katex.min.css";
 import { BlockMath } from "react-katex";
 import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
+import { Navbar, Nav } from "react-bootstrap";
+
 
 export default function Quiz(props) {
   const questions = [
@@ -513,6 +515,23 @@ export default function Quiz(props) {
     if (page === "quiz") {
       return (
         <>
+        <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        <Container>
+          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
+          <Nav className="me-auto" style={{ color: "black" }}>
+          <Navbar.Text>
+            Signed in as: {localStorage.getItem('name')} 
+          </Navbar.Text>
+            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
+            <Nav.Link href="/">Login</Nav.Link>
+            <Nav.Link href="/Quiz">Quiz</Nav.Link>
+            <Nav.Link href="/Wait">Wait</Nav.Link>
+            <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
+            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
+          </Nav>
+        </Container>
+      </Navbar>
           {showScore ? (
             <div className="quiz" style={{ marginTop: "140px" }}>
               <div className="score-section">

@@ -3,6 +3,8 @@ import Crossword from "@jaredreisinger/react-crossword";
 import styled from "styled-components";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
+
 const answerKey = {
   "0_10": ["H", ["D1"]],
   "1_4": ["B", ["D2"]],
@@ -600,6 +602,24 @@ function Dashboard(props) {
       return (
         <div style={mystyle}>
           <Container>
+
+          <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        <Container>
+          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
+          <Nav className="me-auto" style={{ color: "black" }}>
+          <Navbar.Text>
+            Signed in as: {localStorage.getItem('name')} 
+          </Navbar.Text>
+            <Nav.Link href="/Final">Leaderboard</Nav.Link>
+            {/* <Nav.Link href="/">Login</Nav.Link> */}
+            {/* <Nav.Link href="/Quiz">Quiz</Nav.Link> */}
+            {/* <Nav.Link href="/Wait">Wait</Nav.Link> */}
+            {/* <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
+            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
+          </Nav>
+        </Container>
+         </Navbar>
             <Row>
               <Col></Col>
               <Col></Col>
