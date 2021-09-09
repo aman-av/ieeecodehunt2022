@@ -65,7 +65,7 @@ export default function Quiz(props) {
         {
           answerText:
             "D.\\enspace \\frac{1}{a^2} sin \\Big(\\frac{a}{b}\\Big) t",
-          isCorrect: true,
+          isCorrect: false,
         },
       ],
       questionType: "equation",
@@ -367,9 +367,16 @@ export default function Quiz(props) {
             } else if (participant.entrydone === true) {
               console.log("quiz");
               console.log(isLoading);
-              setCurrentQuestion(participant.quizQuestionIndex);
-              setScore(participant.quizpoints);
-              setCountDownTime(participant.quizCountDownTime);
+              if(participant.quizQuestionIndex < 14){
+                setCurrentQuestion(participant.quizQuestionIndex);
+                setScore(participant.quizpoints);
+                setCountDownTime(participant.quizCountDownTime);
+              }
+              else{
+                setShowScore(true)
+                setScore(participant.quizpoints);
+              }
+             
               setPage("quiz");
             } else {
               console.log("login");
@@ -517,10 +524,10 @@ export default function Quiz(props) {
         <>
         <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
+          <Navbar.Brand href="#home">SPS logo  </Navbar.Brand>
           <Nav className="me-auto" style={{ color: "black" }}>
-          <Navbar.Text>
-            Signed in as: {localStorage.getItem('name')} 
+          <Navbar.Text style = {{alignItems:"end"}}>
+            {localStorage.getItem('name')} 
           </Navbar.Text>
             {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
             <Nav.Link href="/">Login</Nav.Link>
