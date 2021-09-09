@@ -175,7 +175,7 @@ module.exports = (app) => {
     // console.log(sorteddata);
     // res.send(sortedjson);
     var newArr;
-    User.find({})
+    User.find({entrydone:true})
       .sort({ totalpoints: -1, totaltime: 1 })
       .exec(function (err, users) {
         if (err) console.warn(err);

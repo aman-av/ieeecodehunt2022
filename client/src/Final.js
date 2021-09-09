@@ -1,10 +1,18 @@
 import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import {  Navbar, Nav } from "react-bootstrap";
 
 export default function Final(props) {
-
+  const [done, setdone] = useState(false)
+  const [usn, setUsn] = useState(localStorage.getItem('usn'))
   const [arr, setarr] = useState([]);
+  useEffect(() => {
+    fetch(`api/4/${usn}`)
+        .then((res) => res.json())
+        .then((result) => {if(result.participant[0].crossworddone===true)setdone(true);})
+        
+  }, [])
   useEffect(() => {
 
     fetch('/api/7')
@@ -48,6 +56,25 @@ export default function Final(props) {
   }
   return (
     <Container>
+     <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        <Container>
+          <Navbar.Brand href="#home">IEEE logo  </Navbar.Brand>
+          <Nav className="me-auto" style={{ color: "black" }}>
+          <Navbar.Text>
+            Signed in as: {localStorage.getItem('name')} 
+          </Navbar.Text>
+            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link> */}
+            {/* <Nav.Link href="/">Login</Nav.Link> */}
+            {/* <Nav.Link href="/Quiz">Quiz</Nav.Link> */}
+            {/* <Nav.Link href="/Wait">Wait</Nav.Link> */}
+            
+            {
+              !done?<Nav.Link href="/Dashboard">Crossword</Nav.Link>:''}
+                          {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
+          </Nav>
+        </Container>
+      </Navbar>
       <div>
       <div>
         <h3
