@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import "./login_page_style.css";
 import "./css/login.css";
 import {  Navbar, Nav } from "react-bootstrap";
-import img from './images/1.jpeg'
+import img from './images/3.jpeg'
 
 function Login(props) {
   
@@ -112,11 +112,11 @@ function Login(props) {
         <img
           alt=""
           src={img}
-          width="50"
+          width=""
           height="50"
           className="d-inline-block align-top"
         />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
       </Navbar.Brand>
           <Nav className="me-auto" style={{ color: "black" }}>
          
@@ -134,10 +134,10 @@ function Login(props) {
         <div className="back">
         <div id="stars"></div>
         <div id="stars2"></div>
-        <div className="login-card">
+        <div className="login-card" style={{marginLeft:"580px"}}>
           <h4>Login</h4>
 
-          <form className="quiz-form">
+          <form className="quiz-form" >
             <label style={{ margin: "0.25rem" }}>
               <h6>USN:</h6>
             </label>

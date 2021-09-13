@@ -3,7 +3,8 @@ import Crossword from "@jaredreisinger/react-crossword";
 import styled from "styled-components";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav,Modal } from "react-bootstrap";
+import img from './images/1.jpeg'
 
 const answerKey = {
   "0_10": ["H", ["D1"]],
@@ -350,7 +351,10 @@ function Dashboard(props) {
   //   currentdate.getMinutes(),
   //   currentdate.getSeconds(),
   // ];
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [usn, setusn] = useState(localStorage.getItem("usn"));
   const [page, setPage] = useState("crossword");
   const [isLoading, setLoading] = useState(true);
@@ -600,37 +604,49 @@ function Dashboard(props) {
     if (page === "crossword") {
       return (
         <div>
-        {/* // <Container> */}
+        
           <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
-            <Container>
-              <Navbar.Brand href="#home">SPS logo </Navbar.Brand>
-              <Nav className="me-auto" style={{ color: "black" }}>
-                <Navbar.Text>
-                  {localStorage.getItem("name")}
-                </Navbar.Text>
-                <Nav.Link href="/Final">Leaderboard</Nav.Link>
-                {/* <Nav.Link href="/">Login</Nav.Link> */}
-                {/* <Nav.Link href="/Quiz">Quiz</Nav.Link> */}
-                {/* <Nav.Link href="/Wait">Wait</Nav.Link> */}
-                {/* <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
-                {/* <Nav.Link href="/Example">Example</Nav.Link>
+        <Container>
+        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <img
+          alt=""
+          src={img}
+          width="50"
+          height="50"
+          className="d-inline-block align-top"
+        />{' '}
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+      </Navbar.Brand>
+          <Nav className="me-auto" >
+          
+            {/* <Nav.Link href="/">Login</Nav.Link>
+            <Nav.Link href="/Quiz">Quiz</Nav.Link>
+            <Nav.Link href="/Wait">Wait</Nav.Link>
+            <Nav.Link href="/Dashboard">Crossword</Nav.Link>
+            <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
-              </Nav>
-            </Container>
-          </Navbar>
+          </Nav>
+          <Nav style={{ color: "black",fontSize:20,fontWeight:"bold",textTransform:"uppercase" }}>
+          <Nav.Link href="/Final" style={{fontSize:"25",color:"black",fontWeight:"bold"}}>Leaderboard</Nav.Link>
+            
+          {localStorage.getItem('name')} <br/>
+          {localStorage.getItem('usn')} 
+      
+    </Nav>
+          </Container>
+      </Navbar>
           <Row>
-            <Col></Col>
-            <Col></Col>
-            <Col>
+           
+            <Col sm="1">
               <p
                 style={{
                   position: "absolute",
                   alignContent: "center",
                   textAlign: "center",
                   alignItems: "center",
-                  marginTop: "5px",
+                  marginTop: "50px",
                   //  marginBottom:"10px",
-                  //  marginLeft:"35%",
+                   marginLeft:"10px",
                   //  marginRight:"35%",
                   border: "3px solid #7798AB",
                   color: "#7798AB",
@@ -646,29 +662,50 @@ function Dashboard(props) {
                 {/* {minute<0 ? {0{minute}} :{minute}}:
                   {second<0 ? {0{second}} :{second}} */}
               </p>
-            </Col>
-            <Col></Col>
-            <Col></Col>
-          </Row>
+           
           <Button
             onClick={reset}
             style={{
               position: "absolute",
-              right: 8,
-              top: 10,
+              // right: 1,
+              // top: 20,
+              marginLeft:"10px",
+              marginTop:"150px",
               backgroundColor: "#011624",
             }}
           >
             Reset
           </Button>
-          {/* <Button onClick={() => getPoints()}>GetScore</Button>
-          <Button onClick={() => handleDone()}>Done</Button> */}
-
+          {/* <Button onClick={() => getPoints()}>GetScore</Button> */}
+          <Button onClick={handleShow} style={{
+              position: "absolute",
+              // right: 1,
+              // top: 20,
+              marginTop:"200px",
+              marginLeft:"10px",
+              backgroundColor: "#011624",
+            }}>Done</Button>
+            <Modal show={show} onHide={handleClose}>
+        <Modal.Header >
+          <Modal.Title>Submit</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Changes cannot be revert back</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleDone}>
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
           <h4>{messages}</h4>
+            </Col>
+          
 
-          <Row>
+          <Col sm="11">
             <CrosswordWrapper
-              style={{paddingRight: "200px", paddingLeft :" 200px", marginTop: "70px", color: "#7798AB" }}
+              style={{ color: "#7798AB" }}
             >
               <Crossword
                 style={{ height: "100px" }}
@@ -683,6 +720,7 @@ function Dashboard(props) {
                 onCrosswordCorrect={onCrosswordCorrect}
               />
             </CrosswordWrapper>
+            </Col>
           </Row>
         </div>
         // {/* </Container> */}

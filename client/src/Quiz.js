@@ -6,7 +6,7 @@ import { BlockMath } from "react-katex";
 import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
 import { Navbar, Nav } from "react-bootstrap";
-
+import img from './images/3.jpeg'
 
 export default function Quiz(props) {
   const questions = [
@@ -522,13 +522,37 @@ export default function Quiz(props) {
     if (page === "quiz") {
       return (
         <>
-        <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        {/* <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
           <Navbar.Brand href="#home">SPS logo  </Navbar.Brand>
           <Nav className="me-auto" style={{ color: "black" }}>
           <Navbar.Text style = {{alignItems:"end"}}>
-            {localStorage.getItem('name')} 
-          </Navbar.Text>
+            
+          </Navbar.Text> */}
+            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
+            <Nav.Link href="/">Login</Nav.Link>
+            <Nav.Link href="/Quiz">Quiz</Nav.Link>
+            <Nav.Link href="/Wait">Wait</Nav.Link>
+            <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
+            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            <Nav.Link href="/Test">Test</Nav.Link> */}
+          {/* </Nav>
+        </Container>
+      </Navbar> */}
+      <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+        <Container>
+        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <img
+          alt=""
+          src={img}
+          width=""
+          height="50"
+          className="d-inline-block align-top"
+        />{' '}
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+      </Navbar.Brand>
+          <Nav className="me-auto" >
+          
             {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
             <Nav.Link href="/">Login</Nav.Link>
             <Nav.Link href="/Quiz">Quiz</Nav.Link>
@@ -537,10 +561,16 @@ export default function Quiz(props) {
             {/* <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
-        </Container>
+          <Nav style={{ color: "black",fontSize:25,fontWeight:"bold",textTransform:"uppercase" }}>
+      
+          {localStorage.getItem('name')} <br/>
+          {localStorage.getItem('usn')} 
+      
+    </Nav>
+          </Container>
       </Navbar>
           {showScore ? (
-            <div className="quiz" style={{ marginTop: "140px" }}>
+            <div className="quiz" style={{ marginTop: "140px",marginLeft:"580px" }}>
               <div className="score-section">
                 <p>
                   You scored {score * 10} out of {questions.length * 10}
@@ -557,7 +587,7 @@ export default function Quiz(props) {
             </div>
           ) : (
             <>
-              <h1 className="header">Quiz</h1>
+              <h1 className="header" >Quiz</h1>
               <ProgressBar
                 progress={counter}
                 size={80}
@@ -565,7 +595,7 @@ export default function Quiz(props) {
                 circleOneStroke="#000000"
                 circleTwoStroke="#7ea9e1"
               />
-              <div className="quiz">
+              <div className="quiz" style={{marginLeft:"560x"}}>
                 <div className="question-section">
                   <div className="question-count">
                     <span>Question {currentQuestion + 1}</span>/

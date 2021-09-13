@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
+import img from './images/2.jpeg'
 
 export default function Final(props) {
   const [done, setdone] = useState(false);
@@ -49,21 +50,37 @@ export default function Final(props) {
   };
   return (
     <div>
+     
       <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-          <Navbar.Brand href="#home">SPS logo </Navbar.Brand>
-          <Nav className="me-auto" style={{ color: "black" }}>
-            <Navbar.Text>{localStorage.getItem("name")}</Navbar.Text>
-            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link> */}
-            {/* <Nav.Link href="/">Login</Nav.Link> */}
-            {/* <Nav.Link href="/Quiz">Quiz</Nav.Link> */}
-            {/* <Nav.Link href="/Wait">Wait</Nav.Link> */}
+        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <img
+          alt=""
+          src={img}
+          width="50"
+          height="50"
+          className="d-inline-block align-top"
+        />{' '}
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+      </Navbar.Brand>
+          <Nav className="me-auto" >
 
-            {!done ? <Nav.Link href="/Dashboard">Crossword</Nav.Link> : ""}
-            {/* <Nav.Link href="/Example">Example</Nav.Link>
+            {/* <Nav.Link href="/Final" >&emsp;&emsp;&emsp;Leaderboard</Nav.Link> */}
+            {/* <Nav.Link href="/">Login</Nav.Link>
+            <Nav.Link href="/Quiz">Quiz</Nav.Link>
+            <Nav.Link href="/Wait">Wait</Nav.Link>
+            <Nav.Link href="/Dashboard">Crossword</Nav.Link>
+            <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
-        </Container>
+          <Nav style={{ color: "black",fontSize:"25",fontWeight:"bold",textTransform:"uppercase" }}>
+          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:"25",color:"black",fontWeight:"bold"}}>Crossword</Nav.Link> : ""}
+            
+          {localStorage.getItem('name')} <br/>
+          {localStorage.getItem('usn')} 
+      
+    </Nav>
+          </Container>
       </Navbar>
       <Container>
       <div>
