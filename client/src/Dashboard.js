@@ -5,6 +5,7 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Navbar, Nav,Modal } from "react-bootstrap";
 import img from './images/3.png'
+import img2 from './images/2.png'
 
 const answerKey = {
   "0_10": ["H", ["D1"]],
@@ -614,18 +615,22 @@ function Dashboard(props) {
           width=""
           height="50"
           className="d-inline-block align-top"
-        />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
+        />
+         
       </Navbar.Brand>
+      <Navbar.Brand>MINDFEST</Navbar.Brand>
+      <Navbar.Brand>
+
           <Nav className="me-auto" >
           </Nav>
           <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
-          <Nav.Link href="/Final" style={{fontSize:15,color:"black"}}>Leaderboard</Nav.Link>
+          <Nav.Link href="/Final" style={{fontSize:15,color:"black"}}><img src={img2} height="50"/></Nav.Link>
             
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 
       
-    </Nav>
+          </Nav>
+          </Navbar.Brand>
           </Container>
       </Navbar>
 

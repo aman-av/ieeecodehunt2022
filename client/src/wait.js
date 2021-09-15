@@ -3,7 +3,7 @@ import "./style.css";
 import "./wait-page-style.css";
 import "./login_page_style.css";
 import { Redirect } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container,Row,Col } from "react-bootstrap";
 import { Navbar, Nav } from "react-bootstrap";
 import img from "./images/3.png";
 
@@ -111,8 +111,29 @@ export default function WaitPage(props) {
               </Nav>
             </Container>
           </Navbar>
-
-          <section className="timer-container">
+          <Container>
+            <Row>
+              <Col className="rules"style={{border:"solid",borderColor:"white",marginTop:"2%",marginBottom:"2%",color:"white",scrollBehavior:"unset"}}>
+               
+                <div id="stars"></div>
+                <div id="stars2"></div>
+                <h1 style={{textAlign:"center"}}>Rules</h1>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+                <p>space for rules</p>
+            
+            
+            
+              </Col>
+              <Col>
+              <section className="timer-container">
             <div id="stars"></div>
             <div id="stars2"></div>
             <section className="timer">
@@ -179,6 +200,10 @@ export default function WaitPage(props) {
               </div>
             </section>
           </section>
+              </Col>
+            </Row>
+          </Container>
+          
         </div>
       );
     } else {

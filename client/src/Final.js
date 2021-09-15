@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Table, Container } from "react-bootstrap";
+import { Button, Table, Container, NavbarBrand } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import img from './images/3.png'
+import img1 from './images/1.png'
 
 export default function Final(props) {
   const [done, setdone] = useState(false);
@@ -60,9 +61,10 @@ export default function Final(props) {
           width=""
           height="50"
           className="d-inline-block align-top"
-        />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
+        />
       </Navbar.Brand>
+      <Navbar.Brand>MINDFEST</Navbar.Brand>
+      <NavbarBrand>
           <Nav className="me-auto" >
 
             {/* <Nav.Link href="/Final" >&emsp;&emsp;&emsp;Leaderboard</Nav.Link> */}
@@ -74,12 +76,13 @@ export default function Final(props) {
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
           <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
-          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:15,color:"black"}}>Crossword</Nav.Link> : ""}
+          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:15,color:"black"}}><img src={img1} height="50"/></Nav.Link> : ""}
             
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 
       
     </Nav>
+    </NavbarBrand>
           </Container>
       </Navbar>
       <Container>

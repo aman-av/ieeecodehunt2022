@@ -10,7 +10,7 @@ import Example from "./example";
 import Test from "./Test";
 
 function App() {
-  const eventEndDate =  new Date(2021,9,15,20,10,0,0);
+  const eventEndDate =  new Date(2021,9,17,20,10,0,0);
   const eventStartDate = new Date(2021,9,15,15,0,0,0);
   return (
     <div>

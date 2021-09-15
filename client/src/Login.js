@@ -4,9 +4,11 @@ import { Redirect } from "react-router-dom";
 import "./login_page_style.css";
 import "./css/login.css";
 import { Navbar, Nav } from "react-bootstrap";
-import img from "./images/3.png";
+import img3 from "./images/3.png";
+import img4 from "./images/4.png";
+import img5 from "./images/5.png";
 import Crawl from "react-star-wars-crawl";
-
+import 'react-star-wars-crawl/lib/index.css'
 function Login(props) {
   const [usn, setusn] = useState(null);
   const [page, setPage] = useState("login");
@@ -124,10 +126,42 @@ function Login(props) {
         <div className="back">
           <div id="stars"></div>
           <div id="stars2"></div>
-
-          <div className="login-card" style={{ marginLeft: "580px" }}>
-            <h4>Login</h4>
-
+          <Navbar bg="">
+          <Container>
+            <Navbar.Brand href="#home">
+              <img
+                src={img3}
+                width=""
+                height="50"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
+            <Navbar.Brand href="#home">
+              <img
+                src={img4}
+                width=""
+                height="50"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
+            <Navbar.Brand href="#home">
+              <img
+                src={img5}
+                width=""
+                height="50"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
+          </Container>
+          </Navbar>
+          {/* <Crawl text="hii there"/> */}
+          <p style={{textAlign:"center",color:"white",fontSize:"40px",marginTop:"4%"}}>IEEE SPS CHAPTER PRESENTS,<br/></p>
+          <p style={{textAlign:"center",color:"white",fontSize:"60px"}}>MINDFEST<br/></p>
+          <p style={{textAlign:"center",color:"white",fontSize:"30px"}}>"TAGLINE"<br/></p>
+          <div className="login-card" >
             <form className="quiz-form">
               <label style={{ margin: "0.25rem" }}>
                 <h6>USN:</h6>
