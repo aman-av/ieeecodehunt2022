@@ -11,7 +11,7 @@ import Test from "./Test";
 
 function App() {
   const eventEndDate =  new Date(2021,9,15,20,10,0,0);
-  const eventStartDate = new Date(2021,9,9,19,10,0,0);
+  const eventStartDate = new Date(2021,9,15,15,0,0,0);
   return (
     <div>
       {/* <Header /> */}

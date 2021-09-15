@@ -6,7 +6,7 @@ import { BlockMath } from "react-katex";
 import "./css/quiz.css";
 import ProgressBar from "./ProgressBar";
 import { Navbar, Nav } from "react-bootstrap";
-import img from './images/3.jpeg'
+import img from './images/3.png'
 
 export default function Quiz(props) {
   const questions = [
@@ -215,6 +215,17 @@ export default function Quiz(props) {
       ],
       questionType: "text",
     },
+    {
+      questionType: "equation",
+      questionText: "Evaluate:",
+      questionEquation: "\\int_0^ 1\\frac{2x}{1+x^2} dx ",
+      answerOptions: [
+        { answerText: "A.\\enspace \\frac{\\pi}{2}\\enspace-\\enspace\\log2", isCorrect: true },
+        { answerText: "B.\\enspace \\pi", isCorrect: false },
+        { answerText: "C.\\enspace \\frac{\\pi}{4}", isCorrect: false },
+        { answerText: "D.\\enspace \\frac{\\pi}{2}\\enspace+\\enspace\\log2", isCorrect: false },
+      ],
+    },
 
     // {
     //   questionText: "What is the capital of France?",
@@ -367,7 +378,7 @@ export default function Quiz(props) {
             } else if (participant.entrydone === true) {
               console.log("quiz");
               console.log(isLoading);
-              if(participant.quizQuestionIndex < 14){
+              if(participant.quizQuestionIndex < 15){
                 setCurrentQuestion(participant.quizQuestionIndex);
                 setScore(participant.quizpoints);
                 setCountDownTime(participant.quizCountDownTime);
@@ -541,7 +552,7 @@ export default function Quiz(props) {
       </Navbar> */}
       <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}} >
         <img
           alt=""
           src={img}
@@ -549,7 +560,7 @@ export default function Quiz(props) {
           height="50"
           className="d-inline-block align-top"
         />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
       </Navbar.Brand>
           <Nav className="me-auto" >
           
@@ -561,7 +572,7 @@ export default function Quiz(props) {
             {/* <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
-          <Nav style={{ color: "black",fontSize:25,fontWeight:"bold",textTransform:"uppercase" }}>
+          <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
       
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 

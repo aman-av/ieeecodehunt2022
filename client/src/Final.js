@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Table, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import img from './images/2.jpeg'
+import img from './images/3.png'
 
 export default function Final(props) {
   const [done, setdone] = useState(false);
@@ -53,15 +53,15 @@ export default function Final(props) {
      
       <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}} >
         <img
           alt=""
           src={img}
-          width="50"
+          width=""
           height="50"
           className="d-inline-block align-top"
         />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
       </Navbar.Brand>
           <Nav className="me-auto" >
 
@@ -73,8 +73,8 @@ export default function Final(props) {
             <Nav.Link href="/Example">Example</Nav.Link>
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
-          <Nav style={{ color: "black",fontSize:"25",fontWeight:"bold",textTransform:"uppercase" }}>
-          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:"25",color:"black",fontWeight:"bold"}}>Crossword</Nav.Link> : ""}
+          <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
+          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:15,color:"black"}}>Crossword</Nav.Link> : ""}
             
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 

@@ -3,11 +3,11 @@ import { Button, Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./login_page_style.css";
 import "./css/login.css";
-import {  Navbar, Nav } from "react-bootstrap";
-import img from './images/3.jpeg'
+import { Navbar, Nav } from "react-bootstrap";
+import img from "./images/3.png";
+import Crawl from "react-star-wars-crawl";
 
 function Login(props) {
-  
   const [usn, setusn] = useState(null);
   const [page, setPage] = useState("login");
   // const [isLoading, setIsLoading] = useState("false");
@@ -45,7 +45,7 @@ function Login(props) {
     ];
     const now = new Date();
     const quizCountDownTime = now.getTime();
-    const data = { usn, date ,quizCountDownTime};
+    const data = { usn, date, quizCountDownTime };
     const options = {
       method: "POST",
       headers: {
@@ -64,17 +64,15 @@ function Login(props) {
           console.log(result);
           console.log(result.participant[0].intime);
           var participant = result.participant[0];
-          console.log(participant.name)
+          console.log(participant.name);
           // setname(participant.name);
-          localStorage.setItem('name',participant.name);
+          localStorage.setItem("name", participant.name);
           if (timeBetweenDates(props.eventStartDate) >= 0) {
-            if(timeBetweenDates(props.eventEndDate) < 0){
-              setPage("final")
-            }
-            else{
+            if (timeBetweenDates(props.eventEndDate) < 0) {
+              setPage("final");
+            } else {
               setPage("wait");
             }
-            
           } else {
             if (participant.entrydone == true) {
               if (
@@ -91,7 +89,7 @@ function Login(props) {
                 setPage("final");
               }
             } else {
-              fetch("/api/1", options).then(()=>{
+              fetch("/api/1", options).then(() => {
                 setPage("quiz");
               });
             }
@@ -106,63 +104,54 @@ function Login(props) {
   if (page === "login") {
     return (
       <div>
-        <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
-        <Container>
-        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
-        <img
-          alt=""
-          src={img}
-          width=""
-          height="50"
-          className="d-inline-block align-top"
-        />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
-      </Navbar.Brand>
-          <Nav className="me-auto" style={{ color: "black" }}>
-         
-            {/* <Nav.Link href="/Final">Leaderboard</Nav.Link>
-            <Nav.Link href="/">Login</Nav.Link>
-            <Nav.Link href="/Quiz">Quiz</Nav.Link>
-            <Nav.Link href="/Wait">Wait</Nav.Link>
-            <Nav.Link href="/Dashboard">Crossword</Nav.Link> */}
-            {/* <Nav.Link href="/Example">Example</Nav.Link>
-            <Nav.Link href="/Test">Test</Nav.Link> */}
-          </Nav>
-          
-        </Container>
-      </Navbar>
+        {/* <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+          <Container>
+            <Navbar.Brand style={{ fontSize: 40, fontWeight: "bold" }}>
+              <img
+                alt=""
+                src={img}
+                width=""
+                height="50"
+                className="d-inline-block align-top"
+              />{" "}
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
+            </Navbar.Brand>
+            <Nav className="me-auto" style={{ color: "black" }}>
+            </Nav>
+          </Container>
+        </Navbar> */}
+
         <div className="back">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div className="login-card" style={{marginLeft:"580px"}}>
-          <h4>Login</h4>
+          <div id="stars"></div>
+          <div id="stars2"></div>
 
-          <form className="quiz-form" >
-            <label style={{ margin: "0.25rem" }}>
-              <h6>USN:</h6>
-            </label>
-            <input
-              type="text"
-              name="usn"
-              value={usn}
-              onChange={(e) => setusn(e.target.value.toUpperCase())}
-              style={{ margin: "0.75rem", justifyContent: "center" }}
-            />
-          </form>
+          <div className="login-card" style={{ marginLeft: "580px" }}>
+            <h4>Login</h4>
 
-          <Button
-            className="login-btn"
-            variant="dark"
-            backgroundColor="#011624"
-            onClick={handler}
-          >
-            Enter Event
-          </Button>
+            <form className="quiz-form">
+              <label style={{ margin: "0.25rem" }}>
+                <h6>USN:</h6>
+              </label>
+              <input
+                type="text"
+                name="usn"
+                value={usn}
+                onChange={(e) => setusn(e.target.value.toUpperCase())}
+                style={{ margin: "0.75rem", justifyContent: "center" }}
+              />
+            </form>
+
+            <Button
+              className="login-btn"
+              variant="dark"
+              backgroundColor="#011624"
+              onClick={handler}
+            >
+              Enter Event
+            </Button>
+          </div>
         </div>
       </div>
-      </div>
-
-      
     );
   } else if (page === "quiz") {
     return <Redirect to="/Quiz" />;

@@ -2,11 +2,14 @@ import React, { useCallback, useRef, useState } from 'react';
 import Crossword from '@jaredreisinger/react-crossword';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
+import { Navbar, Nav } from "react-bootstrap";
+import img from "./images/3.png";
+import { Container } from "react-bootstrap";
 
 const data = {
   across: {
     1: {
-      clue: 'one plus one',
+      clue: 'one plus one (3).',
       answer: 'TWO',
       row: 0,
       col: 0,
@@ -14,7 +17,7 @@ const data = {
   },
   down: {
     2: {
-      clue: 'three minus two',
+      clue: 'three minus two (3).',
       answer: 'ONE',
       row: 0,
       col: 2,
@@ -205,17 +208,6 @@ const CrosswordWrapper = styled.div`
       fill: rgb(100, 200, 100) !important;
     }
   }
-  .clue.correct {
-    ::before {
-      content: '\u2713'; /* a.k.a. checkmark: ✓ */
-      display: inline-block;
-      text-decoration: none;
-      color: rgb(100, 200, 100);
-      margin-right: 0.25em;
-    }
-    text-decoration: line-through;
-    color: rgb(130, 130, 130);
-  }
 `;
 
 const Messages = styled.pre`
@@ -338,38 +330,66 @@ function Example() {
   );
 
   return (
-    <Page>
-      <Header>@jaredreisinger/react-crossword example app</Header>
-
-      <p>
-        This is a demo app that makes use of the @jaredreisinger/react-crossword
-        component. It excersizes most of the functionality, so that you can see
-        how to do so.
-      </p>
-      <p>{score}</p>
-      <Button onClick ={() => getPoints()}>
-          handle
-      </Button>
-
-      <Commands>
-        <Command onClick={focus}>Focus</Command>
-        <Command onClick={fillAllAnswers}>Fill all answers</Command>
-        <Command onClick={reset}>Reset</Command>
-      </Commands>
-
-      <CrosswordWrapper>
+    <div>
+ 
+      <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
+            <Container>
+              <Navbar.Brand style={{ fontSize: 30, fontWeight: "bold" }}>
+                <img
+                  alt=""
+                  src={img}
+                  width=""
+                  height="50"
+                  className="d-inline-block align-top"
+                />{" "}
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
+              </Navbar.Brand>
+              <Nav className="me-auto"></Nav>
+              <Nav
+                style={{
+                  color: "black",
+                  fontSize: 15,
+                  textTransform: "uppercase",
+                }}
+              >
+                <Nav.Link
+                  href="/Wait"
+                  style={{ fontSize: 15, color: "black",fontWeight: "bold"}}
+                >
+                  Back&emsp;&emsp;&emsp;&emsp; 
+                </Nav.Link>
+                {localStorage.getItem("name")} <br />
+                {localStorage.getItem("usn")}
+              </Nav>
+            </Container>
+          </Navbar>
+      <Container>
+      <p style={{color: "white"}}>Note:  Navigate using your arrow keys.</p>
+      
+      <CrosswordWrapper
+      style={{ color: "#7798AB" }}>
         <Crossword
           data={data}
           ref={crossword}
           onCorrect={onCorrect}
           onLoadedCorrect={onLoadedCorrect}
+          theme={{
+            gridBackground: "#7798AB",
+            cellBackground: "grey",
+            numberColor: "rgba(0,0,0,1)",
+            focusBackground: "#ffd717",
+          }}
           onCrosswordCorrect={onCrosswordCorrect}
           onCellChange={onCellChange}
         />
       </CrosswordWrapper>
 
-      <Messages>{messages}</Messages>
-    </Page>
+      </Container>
+
+
+
+      {/* <Messages>{messages}</Messages> */}
+      </div>
   );
 }
 

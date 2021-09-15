@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Navbar, Nav,Modal } from "react-bootstrap";
-import img from './images/1.jpeg'
+import img from './images/3.png'
 
 const answerKey = {
   "0_10": ["H", ["D1"]],
@@ -164,61 +164,61 @@ const answerKey = {
 const data = {
   across: {
     1: {
-      clue: "The method used to convert digital frequencies to analog frequencies",
+      clue: "The method used to convert digital frequencies to analog frequencies (10).",
       answer: "PREWARPING",
       row: 10,
       col: 1,
     },
     2: {
-      clue: "The class of signals used to perform time domain analysis",
+      clue: "The class of signals used to perform time domain analysis (10).",
       answer: "ELEMENTARY",
       row: 9,
       col: 1,
     },
     3: {
-      clue: "These plots are used to study the stability of the system",
+      clue: "These plots are used to study the stability of the system (7).",
       answer: "NYQUIST",
       row: 12,
       col: 1,
     },
     6: {
-      clue: "The power series expansion of a function about 0",
+      clue: "The power series expansion of a function about 0 (9).",
       answer: "MACLAURIN",
       row: 13,
       col: 7,
     },
     5: {
-      clue: "The window function which uses the zeroth Bessel function of first type",
+      clue: "The window function which uses the zeroth Bessel function of first type (6).",
       answer: "KAISER",
       row: 14,
       col: 4,
     },
     4: {
-      clue: "___________ matching method greatly reduces the reflection coefficient of a transmission line",
+      clue: "___________ matching method greatly reduces the reflection coefficient of a transmission line (9).",
       answer: "IMPEDANCE",
       row: 6,
       col: 1,
     },
     7: {
-      clue: "This technique is used to obtain the DFT of a signal from its DTFT",
+      clue: "This technique is used to obtain the DFT of a signal from its DTFT (8).",
       answer: "SAMPLING",
       row: 3,
       col: 0,
     },
     8: {
-      clue: "The class of signals highly sensitive to noise",
+      clue: "The class of signals highly sensitive to noise (6).",
       answer: "ANALOG",
       row: 5,
       col: 3,
     },
     9: {
-      clue: "Most of the second order systems fall under this class of systems",
+      clue: "Most of the second order systems fall under this class of systems (11).",
       answer: "OSCILLATORY",
       row: 2,
       col: 1,
     },
     10: {
-      clue: "Anticausal systems are also known by this name",
+      clue: "Anticausal systems are also known by this name (12).",
       answer: "ANTICIPATORY",
       row: 4,
       col: 1,
@@ -226,61 +226,61 @@ const data = {
   },
   down: {
     1: {
-      clue: "A distortion of this type is caused due to multiple frequencies",
+      clue: "A distortion of this type is caused due to multiple frequencies (8).",
       answer: "HARMONIC",
       row: 0,
       col: 10,
     },
     2: {
-      clue: "The transformation which is linear in two variables",
+      clue: "The transformation which is linear in two variables (8).",
       answer: "BILINEAR",
       row: 1,
       col: 4,
     },
     3: {
-      clue: "Consequence of choosing the sampling frequency lower than that predicted by Nyquist theorem.",
+      clue: "Consequence of choosing the sampling frequency lower than that predicted by Nyquist theorem (8).",
       answer: "ALIASING",
       row: 6,
       col: 0,
     },
     4: {
-      clue: "The type of variables on which time scaling operation can be performed",
+      clue: "The type of variables on which time scaling operation can be performed (11).",
       answer: "INDEPENDENT",
       row: 6,
       col: 1,
     },
     5: {
-      clue: "The diagrammatic method of finding the variable frequency wrt the fixed frequency",
+      clue: "The diagrammatic method of finding the variable frequency wrt the fixed frequency (9).",
       answer: "LISSAJOUS",
       row: 6,
       col: 12,
     },
     6: {
-      clue: "A system can be classified as linear depending on the whether or not it satisfies this theorem",
+      clue: "A system can be classified as linear depending on the whether or not it satisfies this theorem (13).",
       answer: "SUPERPOSITION",
       row: 3,
       col: 14,
     },
     7: {
-      clue: "The ratio of output to the input of a system measured in the same domain , with all initial conditions considered as 0 is ________ function",
+      clue: "The ratio of output to the input of a system measured in the same domain , with all initial conditions considered as 0 is ________ function (8).",
       answer: "TRANSFER",
       row: 6,
       col: 13,
     },
     8: {
-      clue: "The process of increasing the number of samples of a signal , by inserting zeros  in between the existing samples",
+      clue: "The process of increasing the number of samples of a signal , by inserting zeros  in between the existing samples (10).",
       answer: "UPSAMPLING",
       row: 5,
       col: 15,
     },
     9: {
-      clue: "This component is also known as the heart of the CRO",
+      clue: "This component is also known as the heart of the CRO (3).",
       answer: "CRT",
       row: 13,
       col: 9,
     },
     10: {
-      clue: "FIR filter can be classified as all --------- systems",
+      clue: "FIR filter can be classified as all ________ systems (4).",
       answer: "ZERO",
       row: 5,
       col: 9,
@@ -327,17 +327,17 @@ const CrosswordWrapper = styled.div`
       fill: rgb(100, 200, 100) !important;
     }
   }
-  .clue.correct {
-    ::before {
-      content: "\u2713"; /* a.k.a. checkmark: ✓ */
-      display: inline-block;
-      text-decoration: none;
-      color: rgb(100, 200, 100);
-      // margin-right: 0.25em;
-    }
-    text-decoration: line-through;
-    color: rgb(130, 130, 130);
-  }
+  // .clue.correct {
+  //   ::before {
+  //     content: "\u2713"; /* a.k.a. checkmark: ✓ */
+  //     display: inline-block;
+  //     text-decoration: none;
+  //     color: rgb(100, 200, 100);
+  //     // margin-right: 0.25em;
+  //   }
+  //   text-decoration: line-through;
+  //   color: rgb(130, 130, 130);
+  // }
 `;
 
 function Dashboard(props) {
@@ -607,27 +607,20 @@ function Dashboard(props) {
         
           <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-        <Navbar.Brand style={{fontSize:40,fontWeight:"bold"}} >
+        <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}} >
         <img
           alt=""
           src={img}
-          width="50"
+          width=""
           height="50"
           className="d-inline-block align-top"
         />{' '}
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;IEEE CODEHUNT
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST
       </Navbar.Brand>
           <Nav className="me-auto" >
-          
-            {/* <Nav.Link href="/">Login</Nav.Link>
-            <Nav.Link href="/Quiz">Quiz</Nav.Link>
-            <Nav.Link href="/Wait">Wait</Nav.Link>
-            <Nav.Link href="/Dashboard">Crossword</Nav.Link>
-            <Nav.Link href="/Example">Example</Nav.Link>
-            <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
-          <Nav style={{ color: "black",fontSize:20,fontWeight:"bold",textTransform:"uppercase" }}>
-          <Nav.Link href="/Final" style={{fontSize:"25",color:"black",fontWeight:"bold"}}>Leaderboard</Nav.Link>
+          <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
+          <Nav.Link href="/Final" style={{fontSize:15,color:"black"}}>Leaderboard</Nav.Link>
             
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 
@@ -635,18 +628,19 @@ function Dashboard(props) {
     </Nav>
           </Container>
       </Navbar>
+
           <Row>
            
-            <Col sm="1">
+            <Col sm="2">
               <p
                 style={{
                   position: "absolute",
                   alignContent: "center",
                   textAlign: "center",
                   alignItems: "center",
-                  marginTop: "50px",
+                  marginTop: "200px",
                   //  marginBottom:"10px",
-                   marginLeft:"10px",
+                   marginLeft:"70px",
                   //  marginRight:"35%",
                   border: "3px solid #7798AB",
                   color: "#7798AB",
@@ -669,27 +663,27 @@ function Dashboard(props) {
               position: "absolute",
               // right: 1,
               // top: 20,
-              marginLeft:"10px",
-              marginTop:"150px",
+              marginLeft:"40px",
+              marginTop:"300px",
               backgroundColor: "#011624",
             }}
           >
-            Reset
+            Reset Crossword
           </Button>
           {/* <Button onClick={() => getPoints()}>GetScore</Button> */}
           <Button onClick={handleShow} style={{
               position: "absolute",
               // right: 1,
               // top: 20,
-              marginTop:"200px",
-              marginLeft:"10px",
+              marginTop:"350px",
+              marginLeft:"70px",
               backgroundColor: "#011624",
-            }}>Done</Button>
+            }}>Submit</Button>
             <Modal show={show} onHide={handleClose}>
         <Modal.Header >
           <Modal.Title>Submit</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Changes cannot be revert back</Modal.Body>
+        <Modal.Body>Are you sure you want to submit?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
@@ -703,12 +697,12 @@ function Dashboard(props) {
             </Col>
           
 
-          <Col sm="11">
+          <Col sm="9">
             <CrosswordWrapper
               style={{ color: "#7798AB" }}
             >
               <Crossword
-                style={{ height: "100px" }}
+                // style={{ height: "100px" }}
                 data={data}
                 ref={crossword}
                 theme={{

@@ -25,6 +25,7 @@
     "react-lottie": "^1.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-star-wars-crawl": "^2.0.0",
     "react-timer-hook": "^3.0.4",
     "use-timer": "^2.0.1",
     "web-vitals": "^1.0.1"
