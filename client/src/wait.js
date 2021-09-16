@@ -134,13 +134,13 @@ export default function WaitPage(props) {
               <section className="timer-container">
             <div id="stars"></div>
             <div id="stars2"></div>
+            <h2 style={{textAlign:"center",marginTop:"80px"}}>Event will start in:</h2>
+
             <section className="timer">
-              <div>
-                {/* <span className="mdi mdi-calender-clock timer-icon"></span> */}
-                <h2>Event will start in:</h2>
-              </div>
+              
               <div>
                 <section>
+                  
                   {day == null ? (
                     <p>00</p>
                   ) : day < 10 ? (
