@@ -3,6 +3,11 @@
     overflow: hidden;
     background: radial-gradient(ellipse at bottom, #1b2735 0%,#090a0f 100%);
 }
+@font-face {
+    font-family: "StarJediOutline";
+    src: local("StarJediOutline"), url("./fonts/StarJediOutline.ttf") format("truetype");
+    font-weight: normal;
+}
 
 #stars {
     /* overflow: hidden; */

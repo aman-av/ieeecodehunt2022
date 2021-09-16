@@ -552,7 +552,7 @@ export default function Quiz(props) {
       </Navbar> */}
       <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-        <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}} >
+        <Navbar.Brand style={{fontSize:30,fontWeight:"bold",fontFamily :"StarJediOutline"}} >
         <img
           alt=""
           src={img}

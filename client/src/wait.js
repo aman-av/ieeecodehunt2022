@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { Container,Row,Col } from "react-bootstrap";
 import { Navbar, Nav } from "react-bootstrap";
 import img from "./images/3.png";
+import img1 from './images/1.png'
 
 export default function WaitPage(props) {
   const [day, setDay] = useState();
@@ -82,7 +83,7 @@ export default function WaitPage(props) {
         <div>
           <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
             <Container>
-              <Navbar.Brand style={{ fontSize: 30, fontWeight: "bold" }}>
+              <Navbar.Brand style={{ fontSize: 30, fontWeight: "bold" ,fontFamily :"StarJediOutline"}}>
                 <img
                   alt=""
                   src={img}
@@ -104,41 +105,38 @@ export default function WaitPage(props) {
                   href="/Example"
                   style={{ fontSize: 15, color: "black" }}
                 >
-                  Example
+                 <img src={img1} height="40"/>&emsp;&emsp;&emsp;&emsp;
                 </Nav.Link>
                 {localStorage.getItem("name")} <br />
                 {localStorage.getItem("usn")}
               </Nav>
             </Container>
           </Navbar>
-          <Container>
+          <div style ={{padding :"4%"}}>
             <Row>
-              <Col className="rules"style={{border:"solid",borderColor:"white",marginTop:"2%",marginBottom:"2%",color:"white",scrollBehavior:"unset"}}>
+              <Col className="rules" style = {{color : "white" }}
+              // style={{border:"solid",borderColor:"white",marginTop:"2%",marginBottom:"2%",color:"white",scrollBehavior:"unset"}}
+              >
                
                 <div id="stars"></div>
                 <div id="stars2"></div>
-                <h1 style={{textAlign:"center"}}>Rules</h1>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
-                <p>space for rules</p>
+                <h3 style={{textAlign:"left",}}>Things to keep in mind :</h3>
+                <p>*</p>
+                <p>*</p>
+                <p>*</p>
+                <p>*</p>
+                <p>*</p>
             
             
             
               </Col>
-              <Col>
+              <Col >
               <section className="timer-container">
             <div id="stars"></div>
             <div id="stars2"></div>
             <section className="timer">
               <div>
-                <span className="mdi mdi-calender-clock timer-icon"></span>
+                {/* <span className="mdi mdi-calender-clock timer-icon"></span> */}
                 <h2>Event will start in:</h2>
               </div>
               <div>
@@ -202,7 +200,7 @@ export default function WaitPage(props) {
           </section>
               </Col>
             </Row>
-          </Container>
+          </div>
           
         </div>
       );

@@ -7,7 +7,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import img3 from "./images/3.png";
 import img4 from "./images/4.png";
 import img5 from "./images/5.png";
-import Crawl from "react-star-wars-crawl";
+
 import 'react-star-wars-crawl/lib/index.css'
 function Login(props) {
   const [usn, setusn] = useState(null);
@@ -158,9 +158,9 @@ function Login(props) {
           </Container>
           </Navbar>
           {/* <Crawl text="hii there"/> */}
-          <p style={{textAlign:"center",color:"white",fontSize:"40px",marginTop:"4%"}}>IEEE SPS CHAPTER PRESENTS,<br/></p>
-          <p style={{textAlign:"center",color:"white",fontSize:"60px"}}>MINDFEST<br/></p>
-          <p style={{textAlign:"center",color:"white",fontSize:"30px"}}>"TAGLINE"<br/></p>
+          <p style={{textAlign:"center",color:"white",fontSize:"25px",marginTop:"2%",fontFamily :"StarJediOutline"}}>IEEE SPS CHAPTER PRESENTS,<br/></p>
+          <p style={{textAlign:"center",color:"white",fontSize:"120px", fontFamily :"StarJediOutline"}}>MINDFEST<br/></p>
+          <p style={{textAlign:"center",color:"white",fontSize:"20px",fontFamily :"StarJediOutline"}}>"TAGLINE"<br/></p>
           <div className="login-card" >
             <form className="quiz-form">
               <label style={{ margin: "0.25rem" }}>
