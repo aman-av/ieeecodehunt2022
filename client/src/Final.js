@@ -54,7 +54,7 @@ export default function Final(props) {
      
       <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-        <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}} >
+        <Navbar.Brand style={{fontSize:30,fontWeight:"bold",fontFamily :"StarJediOutline"}} >
         <img
           alt=""
           src={img}
@@ -63,7 +63,7 @@ export default function Final(props) {
           className="d-inline-block align-top"
         />
       </Navbar.Brand>
-      <Navbar.Brand>MINDFEST</Navbar.Brand>
+      <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}}>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>
       <NavbarBrand>
           <Nav className="me-auto" >
 
@@ -76,7 +76,7 @@ export default function Final(props) {
             <Nav.Link href="/Test">Test</Nav.Link> */}
           </Nav>
           <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
-          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:15,color:"black"}}><img src={img1} height="50"/></Nav.Link> : ""}
+          {!done ? <Nav.Link href="/Dashboard" style={{fontSize:15,color:"black"}}><img src={img1} height="40"/>&emsp;&emsp;&emsp;&emsp;</Nav.Link> : ""}
             
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 

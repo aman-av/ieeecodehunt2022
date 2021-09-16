@@ -608,7 +608,7 @@ function Dashboard(props) {
         
           <Navbar style={{ backgroundColor: "#7798ab", color: "black" }}>
         <Container>
-        <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}} >
+        <Navbar.Brand style={{fontSize:30,fontWeight:"bold",fontFamily :"StarJediOutline"}} >
         <img
           alt=""
           src={img}
@@ -618,13 +618,13 @@ function Dashboard(props) {
         />
          
       </Navbar.Brand>
-      <Navbar.Brand>MINDFEST</Navbar.Brand>
+      <Navbar.Brand style={{fontSize:30,fontWeight:"bold", color: "black"}}>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>
       <Navbar.Brand>
 
           <Nav className="me-auto" >
           </Nav>
           <Nav style={{ color: "black",fontSize:15,textTransform:"uppercase" }}>
-          <Nav.Link href="/Final" style={{fontSize:15,color:"black"}}><img src={img2} height="50"/></Nav.Link>
+          <Nav.Link href="/Final" style={{fontSize:15,color:"black"}}><img src={img2} height="40"/>&emsp;&emsp;&emsp;&emsp;</Nav.Link>
             
           {localStorage.getItem('name')} <br/>
           {localStorage.getItem('usn')} 

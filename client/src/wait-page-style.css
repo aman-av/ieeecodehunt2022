@@ -41,7 +41,7 @@ h2 {
   margin: 1em;
 }
 
-.timer div:first-child p {
+.timer div:first-child {
   color: #f8f8f8;
 }
 
