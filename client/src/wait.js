@@ -47,7 +47,7 @@ export default function WaitPage(props) {
   useEffect(() => {
     if (day < 0) {
       setIsLoading(true);
-
+      localStorage.removeItem("guesses")
       const usn = localStorage.getItem("usn");
       const currentdate = new Date();
       var date = [

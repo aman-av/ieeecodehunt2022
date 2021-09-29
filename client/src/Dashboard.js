@@ -618,7 +618,7 @@ function Dashboard(props) {
         />
          
       </Navbar.Brand>
-      <Navbar.Brand style={{fontSize:30,fontWeight:"bold", color: "black"}}>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>
+      <Navbar.Brand style={{fontSize:30,fontWeight:"bold", color: "black",fontFamily :"StarJediOutline"}}>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>
       <Navbar.Brand>
 
           <Nav className="me-auto" >

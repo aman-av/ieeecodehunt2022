@@ -7,6 +7,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import img3 from "./images/3.png";
 import img4 from "./images/4.png";
 import img5 from "./images/5.png";
+import img6 from "./images/6.png";
 
 import 'react-star-wars-crawl/lib/index.css'
 function Login(props) {
@@ -130,7 +131,7 @@ function Login(props) {
           <Container>
             <Navbar.Brand href="#home">
               <img
-                src={img3}
+                src={img4}
                 width=""
                 height="50"
                 className="d-inline-block align-top"
@@ -139,7 +140,7 @@ function Login(props) {
             </Navbar.Brand>
             <Navbar.Brand href="#home">
               <img
-                src={img4}
+                src={img3}
                 width=""
                 height="50"
                 className="d-inline-block align-top"
@@ -155,12 +156,21 @@ function Login(props) {
                 alt="React Bootstrap logo"
               />
             </Navbar.Brand>
+            <Navbar.Brand href="#home">
+              <img
+                src={img6}
+                width=""
+                height="50"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
           </Container>
           </Navbar>
           {/* <Crawl text="hii there"/> */}
           <p style={{textAlign:"center",color:"white",fontSize:"25px",marginTop:"2%",fontFamily :"StarJediOutline"}}>IEEE SPS CHAPTER PRESENTS,<br/></p>
-          <p style={{textAlign:"center",color:"white",fontSize:"120px", fontFamily :"StarJediOutline"}}>MINDFEST<br/></p>
-          <p style={{textAlign:"center",color:"white",fontSize:"20px",fontFamily :"StarJediOutline"}}>"TAGLINE"<br/></p>
+          <p style={{textAlign:"center",color:"yellow",fontSize:"120px", fontFamily :"StarJediOutline"}}>MINDFEST<br/></p>
+          <p style={{textAlign:"center",color:"white",fontSize:"20px",fontFamily :"StarJediOutline"}}>QuizWars : The Signal Beckons<br/></p>
           <div className="login-card" >
             <form className="quiz-form">
               <label style={{ margin: "0.25rem" }}>

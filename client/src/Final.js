@@ -63,7 +63,10 @@ export default function Final(props) {
           className="d-inline-block align-top"
         />
       </Navbar.Brand>
-      <Navbar.Brand style={{fontSize:30,fontWeight:"bold"}}>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>
+      {!done ? 
+      <Navbar.Brand style={{fontSize:30,fontWeight:"bold",fontFamily :"StarJediOutline"}}>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>
+      :
+      <Navbar.Brand style={{fontSize:30,fontWeight:"bold",fontFamily :"StarJediOutline"}}>&emsp;&emsp;&emsp;MINDFEST</Navbar.Brand>}
       <NavbarBrand>
           <Nav className="me-auto" >
 
