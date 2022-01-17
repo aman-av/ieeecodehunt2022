@@ -33,7 +33,7 @@ export default function WaitPage(props) {
       var seconds = Math.floor(difference / 1000);
       var minutes = Math.floor(seconds / 60);
       var hours = Math.floor(minutes / 60);
-      var days = Math.floor(hours / 24) - 30;
+      var days = Math.floor(hours / 24) - 31;
 
       hours %= 24;
       minutes %= 60;
@@ -120,13 +120,33 @@ export default function WaitPage(props) {
                
                 <div id="stars"></div>
                 <div id="stars2"></div>
-                <h3 style={{textAlign:"left",}}>Things to keep in mind :</h3>
-                <p>*</p>
-                <p>*</p>
-                <p>*</p>
-                <p>*</p>
-                <p>*</p>
-            
+                <h3 style={{textAlign:"left",color:"yellow",fontFamily:"monospace"}}>Things to keep in mind :</h3>
+                
+
+
+
+
+
+
+
+                <div style={{fontFamily:"cursive"}}>
+                {/* <p>The event has two sections : Quiz and crossword</p> */}
+                <h4>Round 1 - Quiz </h4>
+                <p>This section consists of 15 questions with 1 minute per question</p>
+                <p>Remaining time from the quiz section will be carried to the crossword section</p>
+                <p>Each right answer will be awarded 10 points</p>
+                <h4>Round 2 - Crossword </h4>
+                <p>The second section consists of a 10x10 crossword</p>
+                <p>The minimum time limit for solving the crossword is 30 minutes</p>
+                <p>Each right answer will be awarded 10 points</p>
+                <h4>Please Note </h4>
+               
+               
+               
+                {/* <p>Scoring scheme remains same for both the sections</p> */}
+                <p>Tie breakers are based on the total time taken for submission</p>
+                <p>Decision of the organizing team shall be final</p>
+                </div>
             
             
               </Col>
@@ -134,11 +154,11 @@ export default function WaitPage(props) {
               <section className="timer-container">
             <div id="stars"></div>
             <div id="stars2"></div>
-            <h2 style={{textAlign:"center",marginTop:"80px"}}>Event will start in:</h2>
+            <h2 style={{textAlign:"center",marginTop:"80px",fontFamily:"monospace"}}>Event will start in:</h2>
 
             <section className="timer">
               
-              <div>
+              <div style = {{fontFamily:"cursive"}}>
                 <section>
                   
                   {day == null ? (

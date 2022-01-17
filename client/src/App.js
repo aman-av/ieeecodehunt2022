@@ -5,12 +5,14 @@ import Dashboard from "./Dashboard";
 import Final from "./Final";
 import Quiz from "./Quiz";
 import WaitPage from "./wait";
+
 import Example from "./example";
 import Test from "./Test";
 
 function App() {
-  const eventEndDate =  new Date(2021,9,29,13,40,0);
-  const eventStartDate = new Date(2021,9,29,13,35,0,0);
+  const eventStartDate = new Date(2022,1,17,15,54,0);
+  const eventEndDate =  new Date(2022,1,17,19,30,0);
+  
 
   return (
     <div>

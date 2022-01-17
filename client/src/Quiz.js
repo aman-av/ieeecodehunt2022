@@ -301,7 +301,7 @@ export default function Quiz(props) {
       var seconds = Math.floor(difference / 1000);
       var minutes = Math.floor(seconds / 60);
       var hours = Math.floor(minutes / 60);
-      var days = Math.floor(hours / 24) - 30;
+      var days = Math.floor(hours / 24) - 31;
 
       hours %= 24;
       minutes %= 60;
@@ -318,7 +318,7 @@ export default function Quiz(props) {
       var seconds = Math.floor(difference / 1000);
       var minutes = Math.floor(seconds / 60);
       var hours = Math.floor(minutes / 60);
-      var days = Math.floor(hours / 24) - 30;
+      var days = Math.floor(hours / 24) - 31;
 
       hours %= 24;
       minutes %= 60;
