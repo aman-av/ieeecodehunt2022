@@ -10,8 +10,8 @@ import Example from "./example";
 import Test from "./Test";
 
 function App() {
-  const eventStartDate = new Date(2022,1,17,15,54,0);
-  const eventEndDate =  new Date(2022,1,17,19,30,0);
+  const eventStartDate = new Date(2022,1,17,22,4,0);
+  const eventEndDate =  new Date(2022,1,17,23,59,0);
   
 
   return (
