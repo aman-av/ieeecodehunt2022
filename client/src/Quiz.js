@@ -407,20 +407,22 @@ export default function Quiz(props) {
   });
 
   const handleAnswerOptionClick = (isCorrect) => {
+    var quizpoints = score 
     if (isCorrect) {
+      console.log(score)
       setScore(score + 1);
+      quizpoints = score+1;
+      console.log(score)
     }
     const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setShowScore(true);
-    }
+
     // setCounter(60);
+    console.log(score)
     const now =  new Date();
-    const quizpoints = score + 1;
+    
+    console.log(quizpoints)
     const quizCountDownTime = now.getTime();
-    console.log(quizCountDownTime);
+    // console.log(quizCountDownTime);
     const data = { quizpoints, nextQuestion, usn,quizCountDownTime };
     const options = {
       method: "POST",
@@ -435,6 +437,11 @@ export default function Quiz(props) {
       setCountDownTime(quizCountDownTime);
 
     });
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowScore(true);
+    }
   };
   // useEffect(() => {
   //   localStorage.setItem("counter", counter);
@@ -447,7 +454,7 @@ export default function Quiz(props) {
     else if (counter > 1) {
       // const timer = setTimeout(() => setCounter(counter - 1), 1000);
       // return () => clearTimeout(timer);
-      console.log(counter);
+      // console.log(counter);
     } else {
       console.log("next");
       const nextQuestion = currentQuestion + 1;

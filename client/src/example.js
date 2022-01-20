@@ -27,6 +27,9 @@ const data = {
 };
 
 
+
+
+
 const Page = styled.div`
   padding: 2em;
 `;
@@ -68,6 +71,7 @@ const Messages = styled.pre`
 // features, we actually implement a fair amount...
 
 function Example() {
+
   const crossword = useRef();
 
   // We don't really *do* anything with callbacks from the Crossword component,
@@ -160,8 +164,10 @@ function Example() {
             </Container>
           </Navbar>
       <Container>
-      <p style={{color: "white"}}>Note:  Navigate using your arrow keys.</p>
-      
+      <p style={{color: "yellow",fontSize :25, fontFamily:"monospace"}}>Note:</p>
+      <p style={{color: "white", fontFamily:"cursive"}}>1.) Navigate using your arrow keys.</p>
+      <p style={{color: "white" ,fontFamily:"cursive"}}>2.) Hints will be highlighted by clicking on the </p>
+      <p style={{color: "white", fontFamily:"cursive"}}>respective text box in crossword and vice versa</p>
       <CrosswordWrapper
       style={{ color: "#7798AB" }}>
         <Crossword

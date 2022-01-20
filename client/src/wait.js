@@ -137,7 +137,7 @@ export default function WaitPage(props) {
                 <p>Each right answer will be awarded 10 points</p>
                 <h4>Round 2 - Crossword </h4>
                 <p>The second section consists of a 10x10 crossword</p>
-                <p>The minimum time limit for solving the crossword is 30 minutes</p>
+                <p>The minimum time limit for solving the crossword is 15 minutes</p>
                 <p>Each right answer will be awarded 10 points</p>
                 <h4>Please Note </h4>
                
